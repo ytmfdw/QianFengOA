@@ -22,11 +22,19 @@ public class UserLoginModel implements IUserLoginModel {
 
     @Override
     public String getUserName(Context context) {
-        return SharedUtils.getInstances(QFApp.getInstence()).getUser().name;
+        UserBean user = getUser(context);
+        if (user != null) {
+            return user.name;
+        }
+        return "";
     }
 
     @Override
     public String getUserPassword(Context context) {
-        return SharedUtils.getInstances(QFApp.getInstence()).getUser().password;
+        UserBean user = getUser(context);
+        if (user != null) {
+            return user.password;
+        }
+        return "";
     }
 }
