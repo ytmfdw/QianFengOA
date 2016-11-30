@@ -1,5 +1,6 @@
 package oa.qianfeng.com.oa.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -69,6 +70,13 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     public void loginSuccess(UserBean user) {
         dismissLoading();
         Toast.makeText(this, "登录成功!", Toast.LENGTH_LONG).show();
+        //保存user
+        presenter.saveUser(user);
+        //跳转到主页
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 
     @Override

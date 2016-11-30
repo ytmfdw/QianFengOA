@@ -3,6 +3,7 @@ package oa.qianfeng.com.oa.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.entity.UserBean;
 
 /**
@@ -15,9 +16,9 @@ public class SharedUtils {
     private SharedUtils() {
     }
 
-    public static SharedUtils getInstances(Context mContext) {
+    public static SharedUtils getInstances() {
         if (shared == null) {
-            shared = mContext.getSharedPreferences("shared_utils", Context.MODE_PRIVATE);
+            shared = QFApp.getInstence().getSharedPreferences(Constant.SHARED_NAME, Context.MODE_PRIVATE);
         }
         if (utils == null) {
             utils = new SharedUtils();
@@ -26,11 +27,11 @@ public class SharedUtils {
     }
 
     public void saveUser(UserBean user) {
-        shared.edit().putString("user", user.toString()).commit();
+        shared.edit().putString(Constant.SHARED_KEY_USER, user.toString()).commit();
     }
 
     public UserBean getUser() {
-        String value = shared.getString("user", null);
+        String value = shared.getString(Constant.SHARED_KEY_USER, null);
         if (value == null) {
             return null;
         }

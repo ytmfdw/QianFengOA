@@ -12,12 +12,12 @@ import oa.qianfeng.com.oa.utils.SharedUtils;
 public class UserLoginModel implements IUserLoginModel {
     @Override
     public void saveUser(UserBean user) {
-        SharedUtils.getInstances(QFApp.getInstence()).saveUser(user);
+        SharedUtils.getInstances().saveUser(user);
     }
 
     @Override
     public UserBean getUser(Context context) {
-        return SharedUtils.getInstances(QFApp.getInstence()).getUser();
+        return SharedUtils.getInstances().getUser();
     }
 
     @Override

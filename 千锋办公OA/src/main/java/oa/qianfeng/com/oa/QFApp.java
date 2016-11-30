@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.io.IOException;
 
+import oa.qianfeng.com.oa.entity.UserBean;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,6 +18,8 @@ public class QFApp extends Application {
     static QFApp app;
 
     OkHttpClient httpClient;
+
+    public static UserBean user;
 
     @Override
     public void onCreate() {

@@ -33,6 +33,10 @@ public class UserLoginPresenter {
         model = new UserLoginModel();
     }
 
+    public void saveUser(UserBean user) {
+        model.saveUser(user);
+    }
+
     /**
      * 界面显示用户账号和密码
      */
