@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QFOA.iml" filepath="$PROJECT_DIR$/QFOA.iml" />
       <module fileurl="file://$PROJECT_DIR$/千锋办公OA/app.iml" filepath="$PROJECT_DIR$/千锋办公OA/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/千锋办公OA/千锋办公OA.iml" filepath="$PROJECT_DIR$/千锋办公OA/千锋办公OA.iml" />
     </modules>
   </component>
 </project>
