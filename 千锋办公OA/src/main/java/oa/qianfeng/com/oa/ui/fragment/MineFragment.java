@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import oa.qianfeng.com.oa.R;
+
 /**
  * Created by Administrator on 2016/11/30 0030.
  */
@@ -13,6 +15,6 @@ public class MineFragment extends BaseNetFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_mine, container, false);
     }
 }

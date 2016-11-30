@@ -24,7 +24,7 @@ public class UserLoginModel implements IUserLoginModel {
     public String getUserName(Context context) {
         UserBean user = getUser(context);
         if (user != null) {
-            return user.name;
+            return user.account;
         }
         return "";
     }
