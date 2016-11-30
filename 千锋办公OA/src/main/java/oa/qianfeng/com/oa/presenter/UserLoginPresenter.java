@@ -62,7 +62,7 @@ public class UserLoginPresenter {
                 .client(okHttpClient)
                 .build();
         LoginService ls = retrofit.create(LoginService.class);
-        Call<String> loginCall = ls.login(user.name, user.password);
+        Call<String> loginCall = ls.login(user.account, user.password);
         loginCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

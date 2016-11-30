@@ -61,7 +61,7 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     public void doLogin(View view) {
         showLoading();
         UserBean user = new UserBean();
-        user.name = etName.getText().toString();
+        user.account = etName.getText().toString();
         user.password = etPassword.getText().toString();
         presenter.login(user, this);
     }
