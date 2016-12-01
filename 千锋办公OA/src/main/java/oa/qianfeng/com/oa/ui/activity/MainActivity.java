@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +38,10 @@ public class MainActivity extends BaseNetActivity implements TabHost.OnTabChange
     FragmentTabHost tabhost;
 
     LayoutInflater inflater;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
 
     @Override
@@ -114,5 +119,11 @@ public class MainActivity extends BaseNetActivity implements TabHost.OnTabChange
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+//        super.setTitle(title);
+        this.title.setText(title);
     }
 }

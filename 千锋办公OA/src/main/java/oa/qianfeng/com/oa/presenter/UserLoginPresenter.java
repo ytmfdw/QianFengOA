@@ -10,6 +10,7 @@ import oa.qianfeng.com.oa.impl.OnLoginListener;
 import oa.qianfeng.com.oa.model.IUserLoginModel;
 import oa.qianfeng.com.oa.model.UserLoginModel;
 import oa.qianfeng.com.oa.utils.API;
+import oa.qianfeng.com.oa.utils.L;
 import oa.qianfeng.com.oa.view.IUserLoginView;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -67,9 +68,10 @@ public class UserLoginPresenter {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String value = response.body().trim();
+                L.d("登录结果：value=" + value);
                 String reg = "[^\u4e00-\u9fa5]";
                 value = value.replaceAll(reg, "");
-                Log.d("ytmfdw", "登录结果：value=" + value);
+                L.d("登录结果：value=" + value);
                 if (!value.contains("失败") && !value.contains("删除")) {
                     if (listener != null) {
                         listener.loginSuccess(user);

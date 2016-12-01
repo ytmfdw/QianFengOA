@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.entity.UserBean;
 import oa.qianfeng.com.oa.impl.OnLoginListener;
@@ -70,6 +71,8 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     public void loginSuccess(UserBean user) {
         dismissLoading();
         Toast.makeText(this, "登录成功!", Toast.LENGTH_LONG).show();
+        //保存一份到app中
+        QFApp.user = user;
         //保存user
         presenter.saveUser(user);
         //跳转到主页
