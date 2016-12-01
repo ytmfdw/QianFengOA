@@ -33,6 +33,8 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AttendancePresenter(this);
+
+        presenter.loadData(1, null);
     }
 
     @Nullable

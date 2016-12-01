@@ -3,8 +3,16 @@ package oa.qianfeng.com.oa;
 import android.app.Application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import oa.qianfeng.com.oa.entity.UserBean;
+import oa.qianfeng.com.oa.utils.CookieManger;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,7 +35,6 @@ public class QFApp extends Application {
         app = this;
     }
 
-
     public static QFApp getInstence() {
         return app;
     }
@@ -47,7 +54,7 @@ public class QFApp extends Application {
                                     .build();
                             return chain.proceed(request);
                         }
-                    }).build();
+                    }).cookieJar(new CookieManger(this)).build();
         }
         return httpClient;
     }
