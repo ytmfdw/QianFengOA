@@ -5,4 +5,5 @@ package oa.qianfeng.com.oa.model;
  */
 public interface IAttendanceModel {
     public String getTitle();
+
 }

@@ -73,4 +73,8 @@ public class AttendancePresenter {
     public void setTitle() {
         view.setTitle(model.getTitle());
     }
+
+    public void initViews() {
+        view.initViews();
+    }
 }

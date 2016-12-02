@@ -81,4 +81,18 @@ public class HtmlUtils {
         }
         return null;
     }
+
+    /**
+     * 提取字符串中的所有中文字符
+     *
+     * @param value
+     * @return
+     */
+    public static String getChinese(String value) {
+        L.d("登录结果：value=" + value);
+        String reg = "[^\u4e00-\u9fa5]";
+        String data = value.replaceAll(reg, "");
+        L.d("登录结果：value=" + data);
+        return data;
+    }
 }

@@ -2,16 +2,25 @@ package oa.qianfeng.com.oa.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.R;
+import oa.qianfeng.com.oa.adapter.RBaseAdapter;
+import oa.qianfeng.com.oa.entity.KaoQinAllBean;
+import oa.qianfeng.com.oa.entity.KaoQinBean;
+import oa.qianfeng.com.oa.impl.OnLoadDataListener;
 import oa.qianfeng.com.oa.presenter.AttendancePresenter;
 import oa.qianfeng.com.oa.utils.L;
 import oa.qianfeng.com.oa.view.IAttendanceView;
@@ -19,7 +28,7 @@ import oa.qianfeng.com.oa.view.IAttendanceView;
 /**
  * Created by Administrator on 2016/11/30 0030.
  */
-public class AttendanceFragment extends BaseNetFragment implements IAttendanceView {
+public class AttendanceFragment extends BaseNetFragment implements IAttendanceView, OnLoadDataListener {
 
 
     @BindView(R.id.rv)
@@ -29,12 +38,14 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
 
     AttendancePresenter presenter;
 
+    RBaseAdapter<KaoQinBean> adapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AttendancePresenter(this);
-
-        presenter.loadData(1, null);
+        showLoading();
+        presenter.loadData(1, this);
     }
 
     @Nullable
@@ -48,7 +59,7 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        L.d("AttendanceFragment viewCreate");
+        presenter.initViews();
     }
 
     @Override
@@ -58,7 +69,53 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     }
 
     @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
     public void setTitle(String title) {
         getActivity().setTitle(title);
+    }
+
+    @Override
+    public void initViews() {
+        adapter = new RBaseAdapter<KaoQinBean>(getActivity(), android.R.layout.simple_expandable_list_item_2) {
+            @Override
+            public void bindData(RViewHolder holder, int position) {
+                KaoQinBean bean = adapter.getData(position);
+                if (bean != null) {
+                    TextView tv1 = (TextView) holder.findViewById(android.R.id.text1);
+                    TextView tv2 = (TextView) holder.findViewById(android.R.id.text2);
+                    tv1.setText(bean.kq_date);
+                    tv2.setText(bean.kq_time + bean.kq_address);
+                }
+            }
+        };
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(adapter);
+    }
+
+    @Override
+    public void setData(List<KaoQinBean> data) {
+        adapter.addData(data);
+    }
+
+    @Override
+    public void getDataSuccess(KaoQinAllBean all, List<KaoQinBean> bean) {
+        presenter.setTitle();
+
+        dismissLoading();
+    }
+
+    @Override
+    public void getDataFaild() {
+
+        dismissLoading();
     }
 }
