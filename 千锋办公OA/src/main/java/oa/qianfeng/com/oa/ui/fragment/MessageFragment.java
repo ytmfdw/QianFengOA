@@ -42,7 +42,7 @@ public class MessageFragment extends BaseNetFragment implements IMessageView {
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setTitle() {
         getActivity().setTitle("这是公告消息界面");
     }
 }

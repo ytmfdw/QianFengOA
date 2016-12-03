@@ -47,16 +47,15 @@ public class HtmlUtils {
             for (Element e : e_tmp) {
                 StringBuilder sb_tmp = new StringBuilder();
                 Elements tds = e.getElementsByTag("td");
-             /*   for (Element td : tds) {
-                    sb_tmp.append(td.text()).append("\t");
-                }*/
-                KaoQinBean bean = new KaoQinBean(tds);
-                beans.add(bean);
+                if (tds != null && tds.size() == 7) {
+                    KaoQinBean bean = new KaoQinBean(tds);
+                    beans.add(bean);
+                }
             }
-            Log.d("ytmfdw", "e_kq.toString=" + beans.toString());
+            L.d("ytmfdw", "e_kq.toString=" + beans.toString());
         }
         //反序
-        Collections.reverse(beans);
+//        Collections.reverse(beans);
         return beans;
     }
 

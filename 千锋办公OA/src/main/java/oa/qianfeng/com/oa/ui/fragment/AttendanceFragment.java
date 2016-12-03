@@ -15,8 +15,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.R;
+import oa.qianfeng.com.oa.adapter.EndlessRecyclerOnScrollListener;
 import oa.qianfeng.com.oa.adapter.RBaseAdapter;
 import oa.qianfeng.com.oa.entity.KaoQinAllBean;
 import oa.qianfeng.com.oa.entity.KaoQinBean;
@@ -34,11 +37,13 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.store_house_ptr_frame)
-    PtrClassicFrameLayout storeHousePtrFrame;
+    PtrClassicFrameLayout refresh;
 
     AttendancePresenter presenter;
 
     RBaseAdapter<KaoQinBean> adapter;
+
+    int page = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     @Override
     public void onResume() {
         super.onResume();
-        presenter.setTitle();
+//        presenter.setTitle();
     }
 
     @Override
@@ -75,12 +80,13 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
 
     @Override
     public void dismissLoading() {
-
+        refresh.refreshComplete();
+//        adapter.setFootetViewVisiable(false);
     }
 
     @Override
-    public void setTitle(String title) {
-        getActivity().setTitle(title);
+    public void setTitle() {
+        getActivity().setTitle(presenter.getTitle());
     }
 
     @Override
@@ -99,6 +105,34 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
         };
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
+        //加载更多
+        createLoadMoreView();
+
+        rv.addOnScrollListener(new EndlessRecyclerOnScrollListener(rv.getLayoutManager()) {
+            @Override
+            public void onLoadMore() {
+                adapter.setFootetViewVisiable(true);
+                page++;
+                L.d("page=" + page);
+                presenter.loadData(page, AttendanceFragment.this);
+            }
+        });
+
+        //刷新控件
+        refresh.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                //先清空
+                adapter.setDatas(null);
+                page = 1;
+                presenter.loadData(page, AttendanceFragment.this);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return super.checkCanDoRefresh(frame, rv, header);
+            }
+        });
     }
 
     @Override
@@ -108,8 +142,6 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
 
     @Override
     public void getDataSuccess(KaoQinAllBean all, List<KaoQinBean> bean) {
-        presenter.setTitle();
-
         dismissLoading();
     }
 
@@ -117,5 +149,12 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     public void getDataFaild() {
 
         dismissLoading();
+    }
+
+    private void createLoadMoreView() {
+        View loadMoreView = LayoutInflater
+                .from(getActivity())
+                .inflate(R.layout.view_load_more, rv, false);
+        adapter.addFooterView(loadMoreView);
     }
 }

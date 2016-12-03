@@ -113,6 +113,7 @@ public class MainActivity extends BaseNetActivity implements TabHost.OnTabChange
 
     @Override
     public void onPageSelected(int position) {
+        fragments[position].setTitle();
         tabhost.setCurrentTab(position);
     }
 

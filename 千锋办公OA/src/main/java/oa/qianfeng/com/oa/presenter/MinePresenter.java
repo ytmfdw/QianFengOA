@@ -17,6 +17,6 @@ public class MinePresenter {
     }
 
     public void setTitle() {
-        view.setTitle(model.getTitle());
+        view.setTitle();
     }
 }

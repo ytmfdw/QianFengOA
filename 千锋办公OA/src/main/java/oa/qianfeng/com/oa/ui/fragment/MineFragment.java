@@ -32,7 +32,7 @@ public class MineFragment extends BaseNetFragment implements IMineView {
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setTitle() {
         getActivity().setTitle("这是我的界面");
     }
 }

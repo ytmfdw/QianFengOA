@@ -32,8 +32,10 @@ public class KaoQinBean {
             kq_type = e.get(4).text();
             kq_time = e.get(5).text();
             kq_address = e.get(6).text();
-            if (QFApp.user == null) {
-                QFApp.user = new UserBean();
+            if (QFApp.user == null || QFApp.user.name == null) {
+                if (QFApp.user == null) {
+                    QFApp.user = new UserBean();
+                }
                 QFApp.user.name = kq_name;
                 QFApp.user.id = kq_id;
             }

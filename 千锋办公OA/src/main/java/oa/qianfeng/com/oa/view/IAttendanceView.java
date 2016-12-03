@@ -13,7 +13,7 @@ public interface IAttendanceView {
 
     public void dismissLoading();
 
-    public void setTitle(String title);
+    public void setTitle();
 
     public void initViews();
 

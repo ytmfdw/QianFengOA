@@ -20,6 +20,6 @@ public class MessagePresenter {
     }
 
     public void setTitle() {
-        view.setTitle(model.getTitle());
+        view.setTitle();
     }
 }

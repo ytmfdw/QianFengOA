@@ -5,5 +5,5 @@ package oa.qianfeng.com.oa.view;
  */
 public interface IMineView {
 
-    public void setTitle(String title);
+    public void setTitle();
 }

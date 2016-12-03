@@ -47,17 +47,18 @@ public class AttendancePresenter {
         queryCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+                UserBean user = QFApp.user;
                 String value = response.body().trim();
                 L.d("ytmfdw", "查询结果：" + value);
                 //考勤汇总
                 KaoQinAllBean allBean = HtmlUtils.getKaoQinAllBeanByHtml(value);
                 //考勤数据
                 List<KaoQinBean> data = HtmlUtils.getKaoQinBeanByHtml(value);
+                view.setData(data);
                 if (listener != null) {
                     listener.getDataSuccess(allBean, data);
                 }
                 //设置标题
-                UserBean user = QFApp.user;
 
             }
 
@@ -70,11 +71,16 @@ public class AttendancePresenter {
         });
     }
 
+    public String getTitle() {
+        return model.getTitle();
+    }
+
     public void setTitle() {
-        view.setTitle(model.getTitle());
+        view.setTitle();
     }
 
     public void initViews() {
         view.initViews();
+
     }
 }
