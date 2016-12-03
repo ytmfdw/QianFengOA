@@ -2,6 +2,7 @@ package oa.qianfeng.com.oa.view;
 
 import java.util.List;
 
+import oa.qianfeng.com.oa.entity.KaoQinAllBean;
 import oa.qianfeng.com.oa.entity.KaoQinBean;
 
 /**
@@ -17,5 +18,9 @@ public interface IAttendanceView {
 
     public void initViews();
 
+    public void showDetail(KaoQinAllBean all);
+
     public void setData(List<KaoQinBean> data);
+
+    public void setDetail(KaoQinAllBean all);
 }

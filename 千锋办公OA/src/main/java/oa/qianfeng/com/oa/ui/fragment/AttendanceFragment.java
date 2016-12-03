@@ -2,22 +2,23 @@ package oa.qianfeng.com.oa.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.adapter.EndlessRecyclerOnScrollListener;
 import oa.qianfeng.com.oa.adapter.RBaseAdapter;
@@ -44,6 +45,18 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     RBaseAdapter<KaoQinBean> adapter;
 
     int page = 1;
+    @BindView(R.id.tv_detail)
+    TextView tvDetail;
+    @BindView(R.id.btn_detail)
+    Button btnDetail;
+    @BindView(R.id.btn_overtime)
+    Button btnOvertime;
+    @BindView(R.id.btn_leave)
+    Button btnLeave;
+    @BindView(R.id.btn_sign)
+    Button btnSign;
+
+    private BottomSheetDialog mBottomSheetDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,8 +149,34 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
     }
 
     @Override
+    public void showDetail(KaoQinAllBean allBean) {
+        if (allBean != null) {
+            if (mBottomSheetDialog == null) {
+                mBottomSheetDialog = new BottomSheetDialog(getActivity());
+            }
+
+            TextView tv = new TextView(getActivity());
+            tv.setPadding(10, 10, 0, 0);
+            tv.setText(allBean.toString());
+            mBottomSheetDialog.setContentView(tv);
+            mBottomSheetDialog.setTitle("出勤汇总");
+
+            //如果已经展示了，就退出，不然就显示
+            if (mBottomSheetDialog.isShowing()) {
+                mBottomSheetDialog.dismiss();
+            }
+            mBottomSheetDialog.show();
+        }
+    }
+
+    @Override
     public void setData(List<KaoQinBean> data) {
         adapter.addData(data);
+    }
+
+    @Override
+    public void setDetail(KaoQinAllBean all) {
+        tvDetail.setText(presenter.getDetail(all));
     }
 
     @Override
@@ -156,5 +195,20 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
                 .from(getActivity())
                 .inflate(R.layout.view_load_more, rv, false);
         adapter.addFooterView(loadMoreView);
+    }
+
+    @OnClick({R.id.btn_detail, R.id.btn_overtime, R.id.btn_leave, R.id.btn_sign})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_detail:
+                presenter.showDetail();
+                break;
+            case R.id.btn_overtime:
+                break;
+            case R.id.btn_leave:
+                break;
+            case R.id.btn_sign:
+                break;
+        }
     }
 }

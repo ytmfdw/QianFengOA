@@ -51,12 +51,16 @@ public class AttendancePresenter {
                 String value = response.body().trim();
                 L.d("ytmfdw", "查询结果：" + value);
                 //考勤汇总
-                KaoQinAllBean allBean = HtmlUtils.getKaoQinAllBeanByHtml(value);
+                if (model.getAllBean() == null) {
+                    KaoQinAllBean allBean = HtmlUtils.getKaoQinAllBeanByHtml(value);
+                    model.setAllBean(allBean);
+                }
                 //考勤数据
                 List<KaoQinBean> data = HtmlUtils.getKaoQinBeanByHtml(value);
                 view.setData(data);
+                view.setDetail(model.getAllBean());
                 if (listener != null) {
-                    listener.getDataSuccess(allBean, data);
+                    listener.getDataSuccess(model.getAllBean(), data);
                 }
                 //设置标题
 
@@ -79,8 +83,15 @@ public class AttendancePresenter {
         view.setTitle();
     }
 
+    public String getDetail(KaoQinAllBean all) {
+        return model.getDetail(all);
+    }
+
     public void initViews() {
         view.initViews();
+    }
 
+    public void showDetail() {
+        view.showDetail(model.getAllBean());
     }
 }
