@@ -21,7 +21,7 @@
             <TextView
                 android:id="@+id/title"
                 style="@style/style_textview_title"
-                android:text="这是标题" />
+                android:text="我的" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 

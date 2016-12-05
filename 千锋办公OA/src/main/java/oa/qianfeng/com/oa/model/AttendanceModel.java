@@ -33,6 +33,8 @@ public class AttendanceModel implements IAttendanceModel {
             if (sb.length() == 0) {
                 sb.append("没有不良记录");
             }
+
+            return sb.toString();
         }
         return "没有不良记录";
     }
