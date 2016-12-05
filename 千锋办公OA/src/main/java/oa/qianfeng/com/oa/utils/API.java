@@ -26,4 +26,9 @@ public class API {
      */
     public static final String URL_CLOCK = "oa.php/Group/PerAttRecords/p/{page}";
 
+    /**
+     * 我的界面
+     */
+    public static final String URL_MINE = "oa.php/User/editUserInfo";
+
 }

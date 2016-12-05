@@ -59,6 +59,7 @@ public class AttendancePresenter {
                 List<KaoQinBean> data = HtmlUtils.getKaoQinBeanByHtml(value);
                 view.setData(data);
                 view.setDetail(model.getAllBean());
+                view.setTitle();
                 if (listener != null) {
                     listener.getDataSuccess(model.getAllBean(), data);
                 }
