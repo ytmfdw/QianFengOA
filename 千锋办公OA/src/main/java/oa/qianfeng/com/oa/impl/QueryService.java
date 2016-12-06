@@ -11,4 +11,7 @@ import retrofit2.http.Path;
 public interface QueryService {
     @GET(API.URL_CLOCK)
     Call<String> query(@Path("page") int page);
+
+    @GET(API.URL_LEAVE)
+    Call<String> getLeaveData();
 }

@@ -29,4 +29,19 @@ public class Constant {
      * 更新界面消息
      */
     public final static int MSG_UPDATE_UI = 0x1000;
+    //=================加班、请假、补签
+
+
+    /**
+     * 加班
+     */
+    public final static int TYPE_OVERTIME = 1;
+    /**
+     * 请假
+     */
+    public final static int TYPE_LEFAVE = 2;
+    /**
+     * 补签
+     */
+    public final static int TYPE_SIGN = 3;
 }

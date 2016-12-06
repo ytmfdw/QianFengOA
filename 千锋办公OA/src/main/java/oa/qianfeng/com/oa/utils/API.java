@@ -45,4 +45,9 @@ public class API {
      */
     public static final String URL_BROADCAST_DETAIL = "oa.php/Index/broadcast_detail";
 
+    /**
+     * 请假、加班、补签列表
+     */
+    public static final String URL_LEAVE = "oa.php/Atten/LeaveList";
+
 }

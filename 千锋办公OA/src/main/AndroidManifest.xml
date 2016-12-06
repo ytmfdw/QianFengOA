@@ -19,10 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.LoginActivty"/>
+        <activity android:name=".ui.activity.LoginActivty" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LeaveActivity"
             android:screenOrientation="portrait" />
     </application>
 
