@@ -35,4 +35,14 @@ public class API {
      */
     public static final String URL_MINE = "oa.php/User/editUserInfo";
 
+    /**
+     * 公告消息
+     */
+    public static final String URL_MESSAGE = "oa.php/Index/index";
+
+    /**
+     * 公告详情
+     */
+    public static final String URL_BROADCAST_DETAIL = "oa.php/Index/broadcast_detail";
+
 }

@@ -27,6 +27,8 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
 
     public interface ItemClick {
         public void onItemClick(int position);
+
+        public boolean onLongItemClick(int position);
     }
 
     int[] layoutIds;
@@ -71,7 +73,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     public void setDatas(List<T> list) {
         this.data.clear();
         if (list != null) {
-            this.data.addAll(list);
+            this.data = list;
         }
         notifyDataSetChanged();
     }
@@ -83,8 +85,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
 
     public void addData(List<T> list) {
         if (list != null && list.size() > 0) {
-            T t = list.get(list.size() - 1);
-            L.d("addData last data=" + t.toString());
             this.data.addAll(list);
             notifyDataSetChanged();
         }
@@ -110,13 +110,21 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseAdapter.
     @Override
     public void onBindViewHolder(RViewHolder holder, final int position) {
         int type = getItemViewType(position);
-        L.d("onBindViewHOlder type=" + type);
+//        L.d("onBindViewHOlder type=" + type);
         if (type != TYPE_FOOTER && type != TYPE_HEADER) {
             if (listener != null) {
                 holder.root.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         listener.onItemClick(position);
+                    }
+                });
+                holder.root.setOnLongClickListener(new View.OnLongClickListener() {
+
+                    @Override
+                    public boolean onLongClick(View v) {
+                        return listener.onLongItemClick(position);
+//                        return false;
                     }
                 });
             }

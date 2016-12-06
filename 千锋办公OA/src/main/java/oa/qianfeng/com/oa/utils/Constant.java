@@ -22,4 +22,11 @@ public class Constant {
     public final static String SHARED_KEY_USER = "user";
     public final static String SHARED_KEY_AUTOLOGIN = "autoLogin";
     public final static String SHARED_KEY_SAVEPASSWORD = "savePassword";
+
+
+    //==============消息================
+    /**
+     * 更新界面消息
+     */
+    public final static int MSG_UPDATE_UI = 0x1000;
 }

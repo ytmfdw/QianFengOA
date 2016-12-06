@@ -2,17 +2,12 @@ package oa.qianfeng.com.oa;
 
 import android.app.Application;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import oa.qianfeng.com.oa.entity.UserBean;
 import oa.qianfeng.com.oa.utils.CookieManger;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -29,10 +24,16 @@ public class QFApp extends Application {
 
     public static UserBean user;
 
+    EventBus msgBus = new EventBus();
+
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
+    }
+
+    public EventBus getMsgBus() {
+        return msgBus;
     }
 
     public static QFApp getInstence() {

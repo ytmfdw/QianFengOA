@@ -1,5 +1,6 @@
 package oa.qianfeng.com.oa.presenter;
 
+import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.model.AttendanceModel;
 import oa.qianfeng.com.oa.model.IAttendanceModel;
 import oa.qianfeng.com.oa.model.IMessageModel;
@@ -21,5 +22,9 @@ public class MessagePresenter {
 
     public void setTitle() {
         view.setTitle();
+    }
+
+    public void loadData(OnGetDataListener<String> listener) {
+        model.loadData(listener);
     }
 }
