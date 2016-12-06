@@ -20,4 +20,6 @@ public class Constant {
      * 共享参数 user key
      */
     public final static String SHARED_KEY_USER = "user";
+    public final static String SHARED_KEY_AUTOLOGIN = "autoLogin";
+    public final static String SHARED_KEY_SAVEPASSWORD = "savePassword";
 }

@@ -6,6 +6,8 @@ import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.entity.KaoQinAllBean;
 import oa.qianfeng.com.oa.entity.KaoQinBean;
 import oa.qianfeng.com.oa.entity.UserBean;
+import oa.qianfeng.com.oa.impl.MineService;
+import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.impl.OnLoadDataListener;
 import oa.qianfeng.com.oa.impl.QueryService;
 import oa.qianfeng.com.oa.model.AttendanceModel;
@@ -63,8 +65,6 @@ public class AttendancePresenter {
                 if (listener != null) {
                     listener.getDataSuccess(model.getAllBean(), data);
                 }
-                //设置标题
-
             }
 
             @Override
@@ -95,4 +95,5 @@ public class AttendancePresenter {
     public void showDetail() {
         view.showDetail(model.getAllBean());
     }
+
 }

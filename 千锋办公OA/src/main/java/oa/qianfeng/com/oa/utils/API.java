@@ -22,6 +22,10 @@ public class API {
      */
     public static final String URL_LOGIN = "oa.php/Admin/login/";
     /**
+     * 退出登录
+     */
+    public static final String URL_LOGINOUT = "oa.php/Admin/logout";
+    /**
      * 查看考勤
      */
     public static final String URL_CLOCK = "oa.php/Group/PerAttRecords/p/{page}";

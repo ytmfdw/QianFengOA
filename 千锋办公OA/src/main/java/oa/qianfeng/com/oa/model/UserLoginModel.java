@@ -37,4 +37,14 @@ public class UserLoginModel implements IUserLoginModel {
         }
         return "";
     }
+
+    @Override
+    public boolean isSavePassword() {
+        return SharedUtils.getInstances().isSavePassword();
+    }
+
+    @Override
+    public boolean isAutoLogin() {
+        return SharedUtils.getInstances().isAutoLogin();
+    }
 }

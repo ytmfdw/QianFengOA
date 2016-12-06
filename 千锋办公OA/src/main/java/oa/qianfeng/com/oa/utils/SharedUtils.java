@@ -26,8 +26,29 @@ public class SharedUtils {
         return utils;
     }
 
+    public boolean isSavePassword() {
+        return shared.getBoolean(Constant.SHARED_KEY_SAVEPASSWORD, false);
+    }
+
+    public void setSavePassword(boolean flag) {
+        shared.edit().putBoolean(Constant.SHARED_KEY_SAVEPASSWORD, flag).commit();
+    }
+
+    public boolean isAutoLogin() {
+        return shared.getBoolean(Constant.SHARED_KEY_AUTOLOGIN, false);
+    }
+
+    public void setAutoLogin(boolean flag) {
+        shared.edit().putBoolean(Constant.SHARED_KEY_AUTOLOGIN, flag).commit();
+    }
+
     public void saveUser(UserBean user) {
-        shared.edit().putString(Constant.SHARED_KEY_USER, user.toString()).commit();
+        if (isSavePassword()) {
+            shared.edit().putString(Constant.SHARED_KEY_USER, user.toString()).commit();
+        } else {
+            //只保存账号
+            shared.edit().putString(Constant.SHARED_KEY_USER, user.account).commit();
+        }
     }
 
     public UserBean getUser() {
@@ -38,8 +59,13 @@ public class SharedUtils {
         try {
             String[] arr = value.split(":");
             UserBean user = new UserBean();
-            user.account = arr[0];
-            user.password = arr[1];
+            if (arr.length == 1) {
+                user.account = arr[0];
+                user.password = "";
+            } else if (arr.length == 2) {
+                user.account = arr[0];
+                user.password = arr[1];
+            }
             return user;
         } catch (Exception e) {
             e.printStackTrace();

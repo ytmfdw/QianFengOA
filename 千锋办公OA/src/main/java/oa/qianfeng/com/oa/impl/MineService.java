@@ -10,4 +10,7 @@ import retrofit2.http.GET;
 public interface MineService {
     @GET(API.URL_MINE)
     Call<String> getMineData();
+
+    @GET(API.URL_LOGINOUT)
+    Call<String> loginOut();
 }

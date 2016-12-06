@@ -11,4 +11,9 @@ public interface IUserLoginView {
     public void showLoading();
 
     public void dismissLoading();
+
+    public void setSavePassword(boolean falg);
+
+    public void setAutoLogin(boolean falg);
+
 }

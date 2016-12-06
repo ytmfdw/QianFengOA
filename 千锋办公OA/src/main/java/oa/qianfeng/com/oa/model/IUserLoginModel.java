@@ -26,4 +26,8 @@ public interface IUserLoginModel {
     public String getUserName(Context context);
 
     public String getUserPassword(Context context);
+
+    public boolean isSavePassword();
+
+    public boolean isAutoLogin();
 }
