@@ -1,5 +1,6 @@
 package oa.qianfeng.com.oa.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +29,12 @@ import oa.qianfeng.com.oa.widget.EmptyView;
 /**
  * 加班。补签，请假列表
  */
-public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetDataListener<List<LeaveBean>> {
+public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetDataListener<List<LeaveBean>>, RBaseAdapter.ItemClick {
+
+    /**
+     * 申请界面
+     */
+    final static int INTENT_REQUEST_ASK = 1;
 
     int type = Constant.TYPE_LEFAVE;
     @BindView(R.id.title)
@@ -63,6 +69,10 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
 
     @OnClick(R.id.btn_ask)
     public void onClick() {
+        //跳转到申请界面
+        Intent intent = new Intent(this, AskActivity.class);
+        intent.putExtra(IntentUtils.INTENT_KEY_TYPE, type);
+        startActivityForResult(intent, INTENT_REQUEST_ASK);
     }
 
     @Override
@@ -92,6 +102,8 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
                 tv.setText(data.get(position).toString());
             }
         };
+        adapter.setOnItemClickListener(this);
+
         //初始化RecyleView
         initRecyView(erv);
     }
@@ -112,5 +124,32 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
     @Override
     public void onGetDataFaild() {
 
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this, AskActivity.class);
+        intent.putExtra(IntentUtils.INTENT_KEY_LEAVEBEAN, data.get(position));
+        startActivityForResult(intent, INTENT_REQUEST_ASK);
+//        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case INTENT_REQUEST_ASK: {
+                //申请界面返回，如果正常，就重新加载数据
+                if (resultCode == Constant.SUBMMIT_SUCCESS) {
+                    presenter.loadData(this);
+                }
+            }
+            break;
+        }
+    }
+
+    @Override
+    public boolean onLongItemClick(int position) {
+        return false;
     }
 }

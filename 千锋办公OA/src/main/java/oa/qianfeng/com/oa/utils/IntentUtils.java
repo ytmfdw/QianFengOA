@@ -14,4 +14,9 @@ public class IntentUtils {
      * Activity类型
      */
     public static final String INTENT_KEY_TYPE = "type";
+
+    /**
+     * 请假
+     */
+    public static final String INTENT_KEY_LEAVEBEAN = "leavebean";
 }

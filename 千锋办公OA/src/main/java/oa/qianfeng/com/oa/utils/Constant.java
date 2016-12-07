@@ -54,4 +54,28 @@ public class Constant {
      * 待批复
      */
     public final static int STATE_WAIT = 2;
+
+
+    /**
+     * 提交成功
+     */
+    public final static int SUBMMIT_SUCCESS = 100;
+
+    /**
+     * 取消提交
+     */
+    public final static int SUBMMIT_CANCEL = 0;
+
+    /**
+     * Map的key-->bean
+     */
+    public final static String MAP_KEY_BEAN = "bean";
+    /**
+     * Map的key-->领导
+     */
+    public final static String MAP_KEY_LIST_BOSS = "list_boss";
+    /**
+     * Map的key-->请假事由
+     */
+    public final static String MAP_KEY_LIST_REASON = "list_reason";
 }

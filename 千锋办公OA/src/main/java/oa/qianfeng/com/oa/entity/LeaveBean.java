@@ -1,5 +1,9 @@
 package oa.qianfeng.com.oa.entity;
 
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -19,7 +23,7 @@ import oa.qianfeng.com.oa.utils.Constant;
  * <p/>
  * int state
  */
-public class LeaveBean {
+public class LeaveBean implements Parcelable {
     public String name;
     public String department;
     public String strType;
@@ -39,6 +43,23 @@ public class LeaveBean {
      */
     public int leaveType;
 
+    public LeaveBean() {
+
+    }
+
+    public LeaveBean(Parcel in) {
+        name = in.readString();
+        department = in.readString();
+        strType = in.readString();
+        time = in.readString();
+        duration = in.readString();
+        creatTime = in.readString();
+        mark = in.readString();
+        boss = in.readString();
+        strState = in.readString();
+        state = in.readInt();
+        leaveType = in.readInt();
+    }
 
     public LeaveBean(Element e) {
         Elements tds = e.select("td");
@@ -80,4 +101,40 @@ public class LeaveBean {
     public String toString() {
         return strType + "\t" + creatTime + "\t" + strState;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(isNull(name));
+        dest.writeString(isNull(department));
+        dest.writeString(isNull(strType));
+        dest.writeString(isNull(time));
+        dest.writeString(isNull(duration));
+        dest.writeString(isNull(creatTime));
+        dest.writeString(isNull(mark));
+        dest.writeString(isNull(boss));
+        dest.writeString(isNull(strState));
+        dest.writeInt(state);
+        dest.writeInt(leaveType);
+    }
+
+    public String isNull(String str) {
+        return str == null ? "" : str;
+    }
+
+    public static final Parcelable.Creator<LeaveBean> CREATOR = new Creator<LeaveBean>() {
+        @Override
+        public LeaveBean createFromParcel(Parcel source) {
+            return new LeaveBean(source);
+        }
+
+        @Override
+        public LeaveBean[] newArray(int size) {
+            return new LeaveBean[0];
+        }
+    };
 }

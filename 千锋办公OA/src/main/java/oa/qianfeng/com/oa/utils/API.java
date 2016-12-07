@@ -50,4 +50,9 @@ public class API {
      */
     public static final String URL_LEAVE = "oa.php/Atten/LeaveList";
 
+    /**
+     * 申请URL，提交也是
+     */
+    public static final String URL_ASK = "oa.php/Atten/Askforleave";
+
 }

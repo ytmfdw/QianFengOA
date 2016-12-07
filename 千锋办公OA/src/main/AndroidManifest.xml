@@ -27,6 +27,9 @@
         <activity
             android:name=".ui.activity.LeaveActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AskActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

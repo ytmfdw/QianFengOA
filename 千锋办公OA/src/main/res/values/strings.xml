@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">千锋OA</string>
+    <string name="str_readme">说明：请假超过5天，需要CEO申批，请补发邮件</string>
 </resources>
