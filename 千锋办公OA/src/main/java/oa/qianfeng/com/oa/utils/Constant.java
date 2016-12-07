@@ -44,4 +44,14 @@ public class Constant {
      * 补签
      */
     public final static int TYPE_SIGN = 3;
+
+    //请假状态
+    /**
+     * 已批准
+     */
+    public final static int STATE_ALLOWED = 1;
+    /**
+     * 待批复
+     */
+    public final static int STATE_WAIT = 2;
 }

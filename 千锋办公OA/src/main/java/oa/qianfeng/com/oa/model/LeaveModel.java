@@ -64,7 +64,7 @@ public class LeaveModel implements ILeaveModel {
                     Element table = doc.select("table").first();
                     Element tbody = table.select("tbody").first();
                     Elements trs = tbody.select("tr");
-                    List<LeaveBean> data = new ArrayList<LeaveBean>();
+                    List<LeaveBean> data = new ArrayList<>();
                     for (Element e : trs) {
                         if (e.select("td").size() == 10) {
                             LeaveBean bean = new LeaveBean(e);

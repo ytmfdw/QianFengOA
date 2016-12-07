@@ -1,5 +1,9 @@
 package oa.qianfeng.com.oa.presenter;
 
+import java.util.List;
+
+import oa.qianfeng.com.oa.entity.LeaveBean;
+import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.model.ILeaveModel;
 import oa.qianfeng.com.oa.model.LeaveModel;
 import oa.qianfeng.com.oa.view.ILeaveView;
@@ -23,5 +27,9 @@ public class LeavePresenter {
 
     public void setTitle(int type) {
         view.setTitle(model.getTitle(type));
+    }
+
+    public void loadData(OnGetDataListener<List<LeaveBean>> listener) {
+        model.loadData(listener);
     }
 }

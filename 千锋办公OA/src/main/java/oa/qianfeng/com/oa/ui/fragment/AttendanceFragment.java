@@ -1,5 +1,6 @@
 package oa.qianfeng.com.oa.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
@@ -26,6 +27,9 @@ import oa.qianfeng.com.oa.entity.KaoQinAllBean;
 import oa.qianfeng.com.oa.entity.KaoQinBean;
 import oa.qianfeng.com.oa.impl.OnLoadDataListener;
 import oa.qianfeng.com.oa.presenter.AttendancePresenter;
+import oa.qianfeng.com.oa.ui.activity.LeaveActivity;
+import oa.qianfeng.com.oa.utils.Constant;
+import oa.qianfeng.com.oa.utils.IntentUtils;
 import oa.qianfeng.com.oa.utils.L;
 import oa.qianfeng.com.oa.view.IAttendanceView;
 
@@ -203,12 +207,24 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
             case R.id.btn_detail:
                 presenter.showDetail();
                 break;
-            case R.id.btn_overtime:
-                break;
-            case R.id.btn_leave:
-                break;
-            case R.id.btn_sign:
-                break;
+            case R.id.btn_overtime: {
+                Intent intent = new Intent(getActivity(), LeaveActivity.class);
+                intent.putExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_OVERTIME);
+                startActivity(intent);
+            }
+            break;
+            case R.id.btn_leave: {
+                Intent intent = new Intent(getActivity(), LeaveActivity.class);
+                intent.putExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_LEFAVE);
+                startActivity(intent);
+            }
+            break;
+            case R.id.btn_sign: {
+                Intent intent = new Intent(getActivity(), LeaveActivity.class);
+                intent.putExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_SIGN);
+                startActivity(intent);
+            }
+            break;
         }
     }
 }
