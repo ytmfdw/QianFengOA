@@ -122,12 +122,14 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
                     btnEndTime.setVisibility(View.GONE);
                     etAllTime.setVisibility(View.GONE);
                 } else {
-                    String[] times = bean.time.split("至");
-                    if (times != null && times.length == 2) {
-                        btnStartTime.setText(times[0]);
-                        L.d(btnStartTime.getText().toString());
-                        btnEndTime.setText(times[1]);
-                        L.d(btnEndTime.getText().toString());
+                    if (bean.time != null) {
+                        String[] times = bean.time.split("至");
+                        if (times != null && times.length == 2) {
+                            btnStartTime.setText(times[0]);
+                            L.d(btnStartTime.getText().toString());
+                            btnEndTime.setText(times[1]);
+                            L.d(btnEndTime.getText().toString());
+                        }
                     }
                 }
 
