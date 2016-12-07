@@ -96,13 +96,13 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     public void setupViews(LeaveBean bean) {
         title.setText(type == Constant.TYPE_LEFAVE ? "请假申请" : type == Constant.TYPE_OVERTIME ? "加班申请" : "补签申请");
         if (bean != null) {
-            title.setText(bean.strType);
-            type = bean.leaveType;
-
             tvName.setText("姓名：\t" + bean.name);
             tvDepartment.setText("部门：\t" + bean.department);
 
+
             try {
+                title.setText(bean.strType);
+                type = bean.leaveType;
                 if (boess.contains(bean.boss)) {
                     acsp.setSelection(boess.indexOf(bean.boss));
                 } else {
