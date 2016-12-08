@@ -51,7 +51,15 @@ public class API {
     public static final String URL_LEAVE = "oa.php/Atten/LeaveList";
 
     /**
-     * 申请URL，提交也是
+     * 申请URL，提交申请
+     *
+     * @Query("type") String type
+     * <p/>
+     * type=work      加班
+     * <p/>
+     * type=leave                       请假
+     * <p/>
+     * type=check                       补签
      */
     public static final String URL_ASK = "oa.php/Atten/Askforleave";
 

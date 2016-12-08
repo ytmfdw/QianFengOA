@@ -46,7 +46,7 @@ public class LeaveModel implements ILeaveModel {
     }
 
     @Override
-    public void loadData(final OnGetDataListener<List<LeaveBean>> listener) {
+    public void loadData(int type, final OnGetDataListener<List<LeaveBean>> listener) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API.URL_BASE)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -83,4 +83,6 @@ public class LeaveModel implements ILeaveModel {
             }
         });
     }
+
+
 }

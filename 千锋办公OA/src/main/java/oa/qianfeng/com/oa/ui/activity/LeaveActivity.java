@@ -63,7 +63,7 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
 
         presenter = new LeavePresenter(this);
         presenter.init(type);
-        presenter.loadData(this);
+        presenter.loadData(type, this);
 
     }
 
@@ -141,7 +141,7 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
             case INTENT_REQUEST_ASK: {
                 //申请界面返回，如果正常，就重新加载数据
                 if (resultCode == Constant.SUBMMIT_SUCCESS) {
-                    presenter.loadData(this);
+                    presenter.loadData(type, this);
                 }
             }
             break;

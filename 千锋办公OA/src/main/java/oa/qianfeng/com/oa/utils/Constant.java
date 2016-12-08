@@ -34,6 +34,8 @@ public class Constant {
 
     /**
      * 加班
+     *
+     * 请求reason:value=
      */
     public final static int TYPE_OVERTIME = 1;
     /**

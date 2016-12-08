@@ -3,11 +3,18 @@ package oa.qianfeng.com.oa.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatSpinner;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +30,7 @@ import oa.qianfeng.com.oa.presenter.AskPresenter;
 import oa.qianfeng.com.oa.utils.Constant;
 import oa.qianfeng.com.oa.utils.IntentUtils;
 import oa.qianfeng.com.oa.utils.L;
+import oa.qianfeng.com.oa.utils.StrUtil;
 import oa.qianfeng.com.oa.view.IAskView;
 
 /**
@@ -40,7 +48,7 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     @BindView(R.id.tv_department)
     TextView tvDepartment;
     @BindView(R.id.acsp)
-    AppCompatSpinner acsp;
+    AppCompatAutoCompleteTextView acsp;
     @BindView(R.id.btn_startTime)
     Button btnStartTime;
     @BindView(R.id.btn_endTime)
@@ -63,6 +71,12 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     @BindView(R.id.sp_reason)
     AppCompatSpinner spReason;
 
+    TimePickerDialog startTpd;
+    TimePickerDialog endTpd;
+
+    long startTime = 0;
+    long endTime = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +92,7 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
         presenter = new AskPresenter(this);
 
         if (bean == null) {
-            presenter.loadData(this);
+            presenter.loadData(type, this);
         }
     }
 
@@ -101,12 +115,12 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
 
 
             try {
-                title.setText(bean.strType);
+                title.setText(StrUtil.isNull(bean.strType));
                 type = bean.leaveType;
-                if (boess.contains(bean.boss)) {
-                    acsp.setSelection(boess.indexOf(bean.boss));
+                if (boess.contains(StrUtil.isNull(bean.boss))) {
+//                    acsp.setSelection(boess.indexOf(bean.boss));
                 } else {
-                    boess.add(bean.boss);
+                    boess.add(StrUtil.isNull(bean.boss));
                     adapter_boss.notifyDataSetChanged();
                 }
                 if (reason.contains(bean.strType)) {
@@ -118,11 +132,11 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
 //            acsp.setSelection(0);
                 if (type == Constant.TYPE_SIGN) {
                     //补签，只显示一个时间
-                    btnStartTime.setText(bean.time);
+                    btnStartTime.setText(StrUtil.isNull(bean.time));
                     btnEndTime.setVisibility(View.GONE);
                     etAllTime.setVisibility(View.GONE);
                 } else {
-                    if (bean.time != null) {
+                    if (bean.time != null && bean.time.contains("至")) {
                         String[] times = bean.time.split("至");
                         if (times != null && times.length == 2) {
                             btnStartTime.setText(times[0]);
@@ -133,9 +147,9 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
                     }
                 }
 
-                etAllTime.setText(bean.duration);
+                etAllTime.setText(StrUtil.isNull(bean.duration));
 
-                etMark.setText(bean.mark);
+                etMark.setText(StrUtil.isNull(bean.mark));
 
                 if (bean.state == Constant.STATE_ALLOWED) {
                     //已批复的，无需修改
@@ -163,10 +177,80 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     @OnClick({R.id.btn_startTime, R.id.btn_endTime, R.id.btn_submmit, R.id.btn_cancel})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_startTime:
-                break;
-            case R.id.btn_endTime:
-                break;
+            case R.id.btn_startTime: {
+                if (startTpd == null) {
+                    long tenYears = 10L * 365 * 1000 * 60 * 60 * 24L;
+                    startTpd = new TimePickerDialog.Builder()
+                            .setCallBack(new OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+                                    startTime = millseconds;
+                                    btnStartTime.setText(StrUtil.getStringByTime(startTime));
+                                }
+                            })
+                            .setCancelStringId("取消")
+                            .setSureStringId("确定")
+                            .setTitleStringId("开始时间")
+                            .setYearText("年")
+                            .setMonthText("月")
+                            .setDayText("日")
+                            .setHourText("时")
+                            .setMinuteText("分")
+                            .setCyclic(false)
+                            .setMinMillseconds(System.currentTimeMillis())
+                            .setMaxMillseconds(System.currentTimeMillis() + tenYears)
+                            .setCurrentMillseconds(System.currentTimeMillis())
+                            .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
+                            .setType(Type.ALL)
+                            .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
+                            .setWheelItemTextSelectorColor(getResources().getColor(R.color.timepicker_toolbar_bg))
+                            .setWheelItemTextSize(12)
+                            .build();
+                }
+                startTpd.show(getSupportFragmentManager(), "start");
+            }
+            break;
+            case R.id.btn_endTime: {
+                if (endTpd == null) {
+                    long tenYears = 10L * 365 * 1000 * 60 * 60 * 24L;
+                    endTpd = new TimePickerDialog.Builder()
+                            .setCallBack(new OnDateSetListener() {
+
+                                @Override
+                                public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+                                    endTime = millseconds;
+                                    if (endTime < startTime) {
+                                        Toast.makeText(AskActivity.this, "结束时间不能小于开始时间", Toast.LENGTH_LONG).show();
+                                        endTime = 0;
+                                        return;
+                                    }
+                                    btnEndTime.setText(StrUtil.getStringByTime(endTime));
+                                    etAllTime.setText(StrUtil.getHourByDuration(type, startTime, endTime) + "");
+                                }
+                            })
+                            .setCancelStringId("取消")
+                            .setSureStringId("确定")
+                            .setTitleStringId("结束时间")
+                            .setYearText("年")
+                            .setMonthText("月")
+                            .setDayText("日")
+                            .setHourText("时")
+                            .setMinuteText("分")
+                            .setCyclic(false)
+                            .setMinMillseconds(System.currentTimeMillis())
+                            .setMaxMillseconds(System.currentTimeMillis() + tenYears)
+                            .setCurrentMillseconds(System.currentTimeMillis())
+                            .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
+                            .setType(Type.ALL)
+                            .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
+                            .setWheelItemTextSelectorColor(getResources().getColor(R.color.timepicker_toolbar_bg))
+                            .setWheelItemTextSize(12)
+                            .build();
+                }
+                endTpd.show(getSupportFragmentManager(), "end");
+            }
+            break;
             case R.id.btn_submmit:
                 break;
             case R.id.btn_cancel:
@@ -175,6 +259,7 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
                 break;
         }
     }
+
 
     @Override
     public void onGetDataSuccess(Map<String, Object> value) {

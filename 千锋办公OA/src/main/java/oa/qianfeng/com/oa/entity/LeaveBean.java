@@ -33,11 +33,15 @@ public class LeaveBean implements Parcelable {
     public String mark;
     public String boss;
     public String strState;
+    public String id;
+    public String user_id;
+
+    public String group_id;
 
     /**
      * 当前状态整型值
      */
-    public int state;
+    public int state=-1;
     /**
      * 类型整型值
      */
@@ -59,6 +63,9 @@ public class LeaveBean implements Parcelable {
         strState = in.readString();
         state = in.readInt();
         leaveType = in.readInt();
+        id = in.readString();
+        user_id = in.readString();
+        group_id = in.readString();
     }
 
     public LeaveBean(Element e) {
@@ -75,6 +82,36 @@ public class LeaveBean implements Parcelable {
             mark = tds.get(6).text();
             boss = tds.get(7).text();
             strState = tds.get(8).text();
+
+            //获取id
+            String tmp = tds.get(9).text().trim();
+            if (tmp != null && tmp.length() >= 0) {
+                Elements es = tds.get(9).select("a");
+                for (Element t : es) {
+                    if (t.hasAttr("href")) {
+                        String href = t.attr("href");
+                        if (href.contains("user_id")) {
+                            String[] arr = href.split("\\?");
+                            if (arr.length == 2) {
+                                String[] arr2 = arr[1].split("&");
+                                for (int i = 0; i < arr2.length; i++) {
+                                    if (arr2[i].contains("user_id")) {
+                                        user_id = arr2[i].replaceAll("user_id", "");
+                                        user_id = user_id.replaceAll("=", "");
+                                        user_id = user_id.trim();
+                                    }
+                                    if (arr2[i].contains("ID")) {
+                                        id = arr2[i].replaceAll("ID", "");
+                                        id = id.replaceAll("=", "");
+                                        id = id.trim();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             //状态整型值
             state = getState(strState);
         }
@@ -120,6 +157,9 @@ public class LeaveBean implements Parcelable {
         dest.writeString(isNull(strState));
         dest.writeInt(state);
         dest.writeInt(leaveType);
+        dest.writeString(isNull(id));
+        dest.writeString(isNull(user_id));
+        dest.writeString(isNull(group_id));
     }
 
     public String isNull(String str) {

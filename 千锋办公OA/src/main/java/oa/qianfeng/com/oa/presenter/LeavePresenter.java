@@ -29,7 +29,7 @@ public class LeavePresenter {
         view.setTitle(model.getTitle(type));
     }
 
-    public void loadData(OnGetDataListener<List<LeaveBean>> listener) {
-        model.loadData(listener);
+    public void loadData(int type, OnGetDataListener<List<LeaveBean>> listener) {
+        model.loadData(type, listener);
     }
 }

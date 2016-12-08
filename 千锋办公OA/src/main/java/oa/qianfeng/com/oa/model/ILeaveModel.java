@@ -11,5 +11,5 @@ import oa.qianfeng.com.oa.impl.OnGetDataListener;
 public interface ILeaveModel {
     public String getTitle(int type);
 
-    public void loadData(OnGetDataListener<List<LeaveBean>> listener);
+    public void loadData(int type,OnGetDataListener<List<LeaveBean>> listener);
 }

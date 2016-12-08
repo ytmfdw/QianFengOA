@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.utils.Constant;
 import oa.qianfeng.com.oa.utils.IntentUtils;
 
@@ -13,7 +14,7 @@ import oa.qianfeng.com.oa.utils.IntentUtils;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    int animType = 0;
+    int animType = Constant.ANIM_LEFT_IN_RIGHT_OUT;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class BaseActivity extends AppCompatActivity {
     public void startActivity(Intent intent) {
         intent.putExtra(IntentUtils.INTENT_KEY_ANIMTYPE, Constant.ANIM_LEFT_IN_RIGHT_OUT);
         super.startActivity(intent);
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
     }
 
     @Override
@@ -35,11 +36,11 @@ public class BaseActivity extends AppCompatActivity {
         super.finish();
         switch (animType) {
             case Constant.ANIM_LEFT_IN_RIGHT_OUT: {
-                overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.slide_in_left);
+                overridePendingTransition(0, 0);
             }
             break;
             case Constant.ANIM_RIGHT_IN_LEFT_OUT: {
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                overridePendingTransition(0, R.anim.slide_out_to_right);
             }
             break;
         }

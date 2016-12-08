@@ -5,6 +5,8 @@ import android.app.Application;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import oa.qianfeng.com.oa.entity.UserBean;
 import oa.qianfeng.com.oa.utils.CookieManger;
@@ -26,10 +28,21 @@ public class QFApp extends Application {
 
     EventBus msgBus = new EventBus();
 
+    private Map<String, String> leaderId = new HashMap<>();
+    private Map<String, String> reasonId = new HashMap<>();
+
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
+    }
+
+    public Map<String, String> getLeaderMap() {
+        return leaderId;
+    }
+
+    public Map<String, String> getReasonMap() {
+        return reasonId;
     }
 
     public EventBus getMsgBus() {

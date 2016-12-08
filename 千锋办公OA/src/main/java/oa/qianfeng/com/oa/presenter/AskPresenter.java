@@ -22,8 +22,8 @@ public class AskPresenter {
         }
     }
 
-    public void loadData(OnGetDataListener<Map<String, Object>> listener) {
-        model.loadData(listener);
+    public void loadData(int type, OnGetDataListener<Map<String, Object>> listener) {
+        model.loadData(type, listener);
     }
 
 }

@@ -30,10 +30,12 @@
             android:text="审批人："
             android:textSize="@dimen/text_size_content" />
 
-        <android.support.v7.widget.AppCompatSpinner
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/acsp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:minWidth="100dp" />
     </android.support.v7.widget.ButtonBarLayout>
 
     <android.support.v7.widget.ButtonBarLayout
