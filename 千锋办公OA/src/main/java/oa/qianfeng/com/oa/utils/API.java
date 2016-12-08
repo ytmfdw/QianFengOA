@@ -63,4 +63,13 @@ public class API {
      */
     public static final String URL_ASK = "oa.php/Atten/Askforleave";
 
+    /**
+     * 删除未批复的申请
+     * ?ID="+id+"&user_id="+user_id;
+     * get请求
+     * ID
+     * user_id
+     */
+    public static final String URL_DEL_LEAVE = "oa.php/Atten/delLeave";
+
 }

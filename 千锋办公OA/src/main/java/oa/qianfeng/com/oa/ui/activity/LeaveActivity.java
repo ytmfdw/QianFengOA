@@ -1,8 +1,10 @@
 package oa.qianfeng.com.oa.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
@@ -29,7 +31,7 @@ import oa.qianfeng.com.oa.widget.EmptyView;
 /**
  * 加班。补签，请假列表
  */
-public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetDataListener<List<LeaveBean>>, RBaseAdapter.ItemClick {
+public class LeaveActivity extends BaseNetActivity implements ILeaveView, RBaseAdapter.ItemClick {
 
     /**
      * 申请界面
@@ -63,7 +65,7 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
 
         presenter = new LeavePresenter(this);
         presenter.init(type);
-        presenter.loadData(type, this);
+        presenter.loadData(type);
 
     }
 
@@ -109,7 +111,27 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
     }
 
     @Override
-    public void onGetDataSuccess(List<LeaveBean> value) {
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void showSuccess(String str) {
+
+    }
+
+    @Override
+    public void showFaild(String str) {
+
+    }
+
+    @Override
+    public void setListBean(List<LeaveBean> value) {
         data.clear();
         for (LeaveBean bean : value) {
             //过滤当前的数据
@@ -121,10 +143,6 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onGetDataFaild() {
-
-    }
 
     @Override
     public void onItemClick(int position) {
@@ -141,7 +159,7 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
             case INTENT_REQUEST_ASK: {
                 //申请界面返回，如果正常，就重新加载数据
                 if (resultCode == Constant.SUBMMIT_SUCCESS) {
-                    presenter.loadData(type, this);
+                    presenter.loadData(type);
                 }
             }
             break;
@@ -149,7 +167,21 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, OnGetD
     }
 
     @Override
-    public boolean onLongItemClick(int position) {
+    public boolean onLongItemClick(final int position) {
+        if (data.get(position).state == Constant.STATE_WAIT) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("删除提示")
+                    .setMessage("确定要删除该条数据吗?")
+                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            presenter.delLeave(data.get(position));
+                        }
+                    })
+                    .setPositiveButton("取消", null);
+            builder.show();
+        }
+
         return false;
     }
 }

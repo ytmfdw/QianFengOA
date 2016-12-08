@@ -10,6 +10,7 @@ import java.util.List;
 
 import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.entity.LeaveBean;
+import oa.qianfeng.com.oa.impl.AskService;
 import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.impl.QueryService;
 import oa.qianfeng.com.oa.utils.API;
@@ -72,6 +73,37 @@ public class LeaveModel implements ILeaveModel {
                         }
                     }
                     listener.onGetDataSuccess(data);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                if (listener != null) {
+                    listener.onGetDataFaild();
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void delLeave(LeaveBean bean, final OnGetDataListener<String> listener) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API.URL_BASE)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .client(QFApp.getInstence().getHttpClient())
+                .build();
+        AskService as = retrofit.create(AskService.class);
+        Call<String> call = as.delLeave(bean.id, bean.user_id);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (listener != null) {
+                    if (response.body().contains("成功")) {
+                        listener.onGetDataSuccess("删除成功");
+                    } else {
+                        listener.onGetDataFaild();
+                    }
                 }
             }
 

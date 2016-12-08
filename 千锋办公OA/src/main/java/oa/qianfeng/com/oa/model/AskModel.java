@@ -108,6 +108,96 @@ public class AskModel implements IAskModel {
         });
     }
 
+    @Override
+    public void postData(LeaveBean bean, final OnGetDataListener<String> listener) {
+        //提交请求
+        String startData = "";
+        String startHour = "0";
+        String startMin = "0";
+        String endData = "";
+        String endHour = "0";
+        String endMin = "0";
+        //补签
+        String starData_ = "";
+        String hour_ = "0";
+        String min_ = "0";
+        if (bean.strType.contains("补签")) {
+            try {
+                String[] tmp = bean.duration.split(" ");
+                starData_ = tmp[0];
+                String[] HM = tmp[1].split(":");
+                hour_ = HM[0];
+                min_ = HM[1];
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                String[] tmp = bean.duration.split("至");
+                //开始
+                String[] start = tmp[0].split(" ");
+                startData = start[0];
+                String[] startHM = start[1].split(":");
+                startHour = startHM[0];
+                startMin = startHM[1];
+                //结束
+                String[] end = tmp[1].split(" ");
+                endData = end[0];
+                String[] emdHM = end[1].split(":");
+                endHour = emdHM[0];
+                endMin = emdHM[1];
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API.URL_BASE)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .client(QFApp.getInstence().getHttpClient())
+                .build();
+        AskService as = retrofit.create(AskService.class);
+        Call<String> call = as.postAsk(
+                bean.id,
+                bean.group_id,
+                QFApp.getInstence().getLeaderMap().get(bean.boss),
+                "",
+                QFApp.getInstence().getReasonMap().get(bean.strType),
+                startData,
+                startHour,
+                startMin,
+                endData,
+                endHour,
+                endMin,
+                starData_,
+                hour_,
+                min_,
+                bean.hours,
+                bean.mark
+        );
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String result = response.body();
+                if (listener != null) {
+                    if (result.contains("成功")) {
+                        listener.onGetDataSuccess("提交成功");
+                    } else {
+                        listener.onGetDataFaild();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                if (listener != null) {
+                    listener.onGetDataFaild();
+                }
+            }
+        });
+    }
+
     private String getType(int type) {
         switch (type) {
             case Constant.TYPE_LEFAVE: {

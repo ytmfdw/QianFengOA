@@ -39,9 +39,14 @@ public class LeaveBean implements Parcelable {
     public String group_id;
 
     /**
+     * 持续时长
+     */
+    public String hours = "0";
+
+    /**
      * 当前状态整型值
      */
-    public int state=-1;
+    public int state = -1;
     /**
      * 类型整型值
      */

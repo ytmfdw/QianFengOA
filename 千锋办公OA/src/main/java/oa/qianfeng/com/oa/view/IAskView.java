@@ -14,4 +14,8 @@ public interface IAskView {
     public void setupViews(LeaveBean bean);
 
     public LeaveBean getLeaveBean();
+
+    public void showSuccess(String str);
+
+    public void showFaild();
 }

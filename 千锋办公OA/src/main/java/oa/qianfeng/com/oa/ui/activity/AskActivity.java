@@ -63,19 +63,19 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     List<String> reason = new ArrayList<>();
     ArrayAdapter<String> adapter_reason;
 
-    AskPresenter presenter;
     @BindView(R.id.btn_submmit)
     Button btnSubmmit;
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.sp_reason)
     AppCompatSpinner spReason;
-
     TimePickerDialog startTpd;
-    TimePickerDialog endTpd;
 
+    TimePickerDialog endTpd;
     long startTime = 0;
+
     long endTime = 0;
+    AskPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,9 +117,10 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
             try {
                 title.setText(StrUtil.isNull(bean.strType));
                 type = bean.leaveType;
-                if (boess.contains(StrUtil.isNull(bean.boss))) {
-//                    acsp.setSelection(boess.indexOf(bean.boss));
-                } else {
+                acsp.setText(bean.boss);
+                if (!boess.contains(StrUtil.isNull(bean.boss))) {
+//                    acsp.setText(bean.boss);
+//                } else {
                     boess.add(StrUtil.isNull(bean.boss));
                     adapter_boss.notifyDataSetChanged();
                 }
@@ -171,6 +172,18 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     @Override
     public LeaveBean getLeaveBean() {
         return bean;
+    }
+
+    @Override
+    public void showSuccess(String str) {
+        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+        setResult(Constant.SUBMMIT_SUCCESS);
+        finish();
+    }
+
+    @Override
+    public void showFaild() {
+        Toast.makeText(this, "请求失败", Toast.LENGTH_LONG).show();
     }
 
 
@@ -251,8 +264,24 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
                 endTpd.show(getSupportFragmentManager(), "end");
             }
             break;
-            case R.id.btn_submmit:
-                break;
+            case R.id.btn_submmit: {
+                bean.boss = acsp.getText().toString();
+                bean.strType = (String) spReason.getSelectedItem();
+                if (type == Constant.TYPE_SIGN) {
+                    bean.duration = btnStartTime.getText().toString();
+                } else {
+                    bean.duration = btnStartTime.getText().toString() + "至" + btnEndTime.getText().toString();
+                }
+
+                bean.hours = etAllTime.getText().toString();
+
+                bean.mark = etMark.getText().toString();
+
+                presenter.postAsk(bean);
+
+
+            }
+            break;
             case R.id.btn_cancel:
                 setResult(Constant.SUBMMIT_CANCEL);
                 finish();

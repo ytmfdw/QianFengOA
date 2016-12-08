@@ -29,12 +29,16 @@ public class Constant {
      * 更新界面消息
      */
     public final static int MSG_UPDATE_UI = 0x1000;
+    /**
+     * 提交了申请，更新公告消息
+     */
+    public final static int MSG_GET_MSGDATA = 0x1001;
     //=================加班、请假、补签
 
 
     /**
      * 加班
-     *
+     * <p/>
      * 请求reason:value=
      */
     public final static int TYPE_OVERTIME = 1;

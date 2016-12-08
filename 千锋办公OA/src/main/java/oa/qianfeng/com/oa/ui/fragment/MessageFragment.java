@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -53,6 +54,7 @@ public class MessageFragment extends BaseNetFragment implements OnGetDataListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        QFApp.getInstence().getMsgBus().register(this);
         presenter = new MessagePresenter(this);
 
         presenter.loadData(this);
@@ -151,5 +153,18 @@ public class MessageFragment extends BaseNetFragment implements OnGetDataListene
     @Override
     public void onGetDataFaild() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        QFApp.getInstence().getMsgBus().unregister(this);
+    }
+
+    @Subscribe
+    public void onEventMainThread(Message msg) {
+        if (msg.what == Constant.MSG_GET_MSGDATA) {
+            presenter.loadData(this);
+        }
     }
 }

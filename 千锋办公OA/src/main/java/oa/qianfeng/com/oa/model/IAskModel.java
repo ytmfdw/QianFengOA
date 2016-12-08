@@ -2,6 +2,7 @@ package oa.qianfeng.com.oa.model;
 
 import java.util.Map;
 
+import oa.qianfeng.com.oa.entity.LeaveBean;
 import oa.qianfeng.com.oa.impl.OnGetDataListener;
 
 /**
@@ -9,4 +10,7 @@ import oa.qianfeng.com.oa.impl.OnGetDataListener;
  */
 public interface IAskModel {
     public void loadData(int type, OnGetDataListener<Map<String, Object>> listener);
+
+    public void postData(LeaveBean bean, OnGetDataListener<String> listener);
+
 }
