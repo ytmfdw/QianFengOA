@@ -7,20 +7,25 @@
     <RadioGroup
         android:id="@+id/rg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
         android:checkedButton="@+id/rb_broadcast"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <RadioButton
             android:id="@+id/rb_broadcast"
             style="@style/rb_msg_style"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/rb_left_selector"
+            android:checked="true"
             android:text="公告列表" />
 
         <RadioButton
             android:id="@+id/rb_message"
             style="@style/rb_msg_style"
+            android:layout_marginRight="50dp"
             android:background="@drawable/rb_right_selector"
             android:text="消息中心" />
     </RadioGroup>
