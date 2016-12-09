@@ -90,18 +90,18 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
         spReason.setAdapter(adapter_reason);
 
         presenter = new AskPresenter(this);
-
+        showLoading();
         presenter.loadData(bean, type, this);
     }
 
     @Override
     public void showLoading() {
-
+        getShowDialog(true, "正在加载...").show();
     }
 
     @Override
-    public void dissmissLoading() {
-
+    public void dismissLoading() {
+        dismiss();
     }
 
     @Override
@@ -301,10 +301,12 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
         reason.addAll(myreason);
         adapter_reason.notifyDataSetChanged();
         setupViews(bean);
+
+        dismissLoading();
     }
 
     @Override
     public void onGetDataFaild() {
-
+        Toast.makeText(this, "获取数据失败", Toast.LENGTH_LONG).show();
     }
 }

@@ -39,13 +39,13 @@ public class AskPresenter {
             model.postEditData(bean, new OnGetDataListener<String>() {
                 @Override
                 public void onGetDataSuccess(String value) {
-                    view.dissmissLoading();
+                    view.dismissLoading();
                     view.showSuccess(value);
                 }
 
                 @Override
                 public void onGetDataFaild() {
-                    view.dissmissLoading();
+                    view.dismissLoading();
                     view.showFaild();
                 }
             });
@@ -53,13 +53,13 @@ public class AskPresenter {
             model.postData(bean, new OnGetDataListener<String>() {
                 @Override
                 public void onGetDataSuccess(String value) {
-                    view.dissmissLoading();
+                    view.dismissLoading();
                     view.showSuccess(value);
                 }
 
                 @Override
                 public void onGetDataFaild() {
-                    view.dissmissLoading();
+                    view.dismissLoading();
                     view.showFaild();
                 }
             });

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,22 +113,22 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, RBaseA
 
     @Override
     public void showLoading() {
-
+        getShowDialog(true, "正在加载...").show();
     }
 
     @Override
     public void dismissLoading() {
-
+        dismiss();
     }
 
     @Override
     public void showSuccess(String str) {
-
+        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showFaild(String str) {
-
+        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
     }
 
     @Override

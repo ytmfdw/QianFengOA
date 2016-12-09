@@ -36,6 +36,7 @@ public class AttendancePresenter {
     }
 
     public void loadData(int page, final OnLoadDataListener listener) {
+        view.showLoading();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API.URL_BASE)
                 .client(QFApp.getInstence().getHttpClient())
@@ -65,10 +66,13 @@ public class AttendancePresenter {
                 if (listener != null) {
                     listener.getDataSuccess(model.getAllBean(), data);
                 }
+
+                view.dismissLoading();
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                view.dismissLoading();
                 if (listener != null) {
                     listener.getDataFaild();
                 }

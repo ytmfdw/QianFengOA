@@ -32,25 +32,28 @@ public class MinePresenter {
     }
 
     public void setTitle() {
-        view.setTitle();
+        view.setTitle(model.getTitle());
     }
 
     public void getData() {
+        view.showLoading();
         model.getMineData(new OnGetDataListener<MineBean>() {
             @Override
             public void onGetDataSuccess(MineBean value) {
                 L.d(value.toString());
                 view.setMineData(value);
+                view.dismissLoading();
             }
 
             @Override
             public void onGetDataFaild() {
-
+                view.dismissLoading();
             }
         });
     }
 
     public void loginOut(final OnGetDataListener<String> listener) {
+        view.showLoading();
         //退出登录
         Retrofit retrofit = new Retrofit.Builder().baseUrl(API.URL_BASE)
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -62,6 +65,7 @@ public class MinePresenter {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String value = response.body();
+                view.dismissLoading();
                 L.d(value);
 //                String reg = "[^\u4e00-\u9fa5]";
 //                value = value.replaceAll(reg, "");
@@ -77,6 +81,7 @@ public class MinePresenter {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                view.dismissLoading();
                 if (listener != null) {
                     listener.onGetDataFaild();
                 }

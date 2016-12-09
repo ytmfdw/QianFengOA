@@ -52,11 +52,11 @@ public class BroadcastActivity extends BaseNetActivity implements IBroadcasdView
 
     @Override
     public void showLoading() {
-
+        getShowDialog(true, "正在加载...").show();
     }
 
     @Override
     public void dismissLoading() {
-
+        dismiss();
     }
 }

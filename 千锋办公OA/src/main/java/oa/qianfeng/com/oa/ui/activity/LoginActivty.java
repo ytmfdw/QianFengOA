@@ -1,9 +1,14 @@
 package oa.qianfeng.com.oa.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,6 +23,7 @@ import oa.qianfeng.com.oa.impl.OnLoginListener;
 import oa.qianfeng.com.oa.presenter.UserLoginPresenter;
 import oa.qianfeng.com.oa.utils.SharedUtils;
 import oa.qianfeng.com.oa.view.IUserLoginView;
+import oa.qianfeng.com.oa.widget.LoadingView;
 
 /**
  * 登录界面
@@ -61,12 +67,12 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
 
     @Override
     public void showLoading() {
-
+        getShowDialog(false, "登录...").show();
     }
 
     @Override
     public void dismissLoading() {
-
+        dismiss();
     }
 
     @Override

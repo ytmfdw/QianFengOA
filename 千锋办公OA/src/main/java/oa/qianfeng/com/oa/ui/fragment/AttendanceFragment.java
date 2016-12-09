@@ -27,6 +27,7 @@ import oa.qianfeng.com.oa.entity.KaoQinAllBean;
 import oa.qianfeng.com.oa.entity.KaoQinBean;
 import oa.qianfeng.com.oa.impl.OnLoadDataListener;
 import oa.qianfeng.com.oa.presenter.AttendancePresenter;
+import oa.qianfeng.com.oa.ui.activity.BaseNetActivity;
 import oa.qianfeng.com.oa.ui.activity.LeaveActivity;
 import oa.qianfeng.com.oa.utils.Constant;
 import oa.qianfeng.com.oa.utils.IntentUtils;
@@ -84,21 +85,18 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
         presenter.initViews();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        presenter.setTitle();
-    }
 
     @Override
     public void showLoading() {
-
+        BaseNetActivity act = (BaseNetActivity) getActivity();
+        act.getShowDialog(true, "正在加载...").show();
     }
 
     @Override
     public void dismissLoading() {
         refresh.refreshComplete();
-//        adapter.setFootetViewVisiable(false);
+        BaseNetActivity act = (BaseNetActivity) getActivity();
+        act.dismiss();
     }
 
     @Override

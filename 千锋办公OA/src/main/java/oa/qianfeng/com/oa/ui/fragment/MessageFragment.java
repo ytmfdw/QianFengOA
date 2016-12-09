@@ -27,6 +27,7 @@ import oa.qianfeng.com.oa.entity.MsgBroadcastBean;
 import oa.qianfeng.com.oa.entity.MsgMessageBean;
 import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.presenter.MessagePresenter;
+import oa.qianfeng.com.oa.ui.activity.BaseNetActivity;
 import oa.qianfeng.com.oa.utils.Constant;
 import oa.qianfeng.com.oa.utils.L;
 import oa.qianfeng.com.oa.view.IMessageView;
@@ -56,7 +57,7 @@ public class MessageFragment extends BaseNetFragment implements OnGetDataListene
         super.onCreate(savedInstanceState);
         QFApp.getInstence().getMsgBus().register(this);
         presenter = new MessagePresenter(this);
-
+        showLoading();
         presenter.loadData(this);
 
     }
@@ -149,11 +150,13 @@ public class MessageFragment extends BaseNetFragment implements OnGetDataListene
         Message updateMsg = Message.obtain();
         updateMsg.what = Constant.MSG_UPDATE_UI;
         QFApp.getInstence().getMsgBus().post(updateMsg);
+
+        dismissLoading();
     }
 
     @Override
     public void onGetDataFaild() {
-
+        dismissLoading();
     }
 
     @Override
@@ -167,5 +170,17 @@ public class MessageFragment extends BaseNetFragment implements OnGetDataListene
         if (msg.what == Constant.MSG_GET_MSGDATA) {
             presenter.loadData(this);
         }
+    }
+
+    @Override
+    public void showLoading() {
+        BaseNetActivity act = (BaseNetActivity) getActivity();
+        act.getShowDialog(true, "正在加载...").show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        BaseNetActivity act = (BaseNetActivity) getActivity();
+        act.dismiss();
     }
 }

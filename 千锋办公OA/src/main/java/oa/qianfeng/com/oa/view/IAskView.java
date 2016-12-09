@@ -9,7 +9,7 @@ public interface IAskView {
 
     public void showLoading();
 
-    public void dissmissLoading();
+    public void dismissLoading();
 
     public void setupViews(LeaveBean bean);
 

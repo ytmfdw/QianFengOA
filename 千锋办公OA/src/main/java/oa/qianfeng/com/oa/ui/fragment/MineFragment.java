@@ -17,6 +17,7 @@ import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.entity.MineBean;
 import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.presenter.MinePresenter;
+import oa.qianfeng.com.oa.ui.activity.BaseNetActivity;
 import oa.qianfeng.com.oa.ui.activity.LoginActivty;
 import oa.qianfeng.com.oa.view.IMineView;
 
@@ -69,8 +70,8 @@ public class MineFragment extends BaseNetFragment implements IMineView, OnGetDat
     }
 
     @Override
-    public void setTitle() {
-        getActivity().setTitle("这是我的界面");
+    public void setTitle(String str) {
+        getActivity().setTitle(str);
     }
 
     @Override
@@ -95,5 +96,17 @@ public class MineFragment extends BaseNetFragment implements IMineView, OnGetDat
     @Override
     public void onGetDataFaild() {
         Toast.makeText(getActivity(), "退出失败", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showLoading() {
+        BaseNetActivity act = (BaseNetActivity) getActivity();
+        act.getShowDialog(true, "正在加载...").show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        BaseNetActivity act = (BaseNetActivity) getActivity();
+        act.dismiss();
     }
 }

@@ -34,6 +34,7 @@ public class LeavePresenter {
     }
 
     public void loadData(int type) {
+        view.showLoading();
         model.loadData(type, new OnGetDataListener<List<LeaveBean>>() {
             @Override
             public void onGetDataSuccess(List<LeaveBean> value) {
