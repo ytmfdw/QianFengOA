@@ -6,18 +6,23 @@
 
     <include layout="@layout/title_layout" />
 
-    <oa.qianfeng.com.oa.widget.EmptyRecyclerView
-        android:id="@+id/erv"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
 
-    <oa.qianfeng.com.oa.widget.EmptyView
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center" />
+        <oa.qianfeng.com.oa.widget.EmptyRecyclerView
+            android:id="@+id/erv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <oa.qianfeng.com.oa.widget.EmptyView
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/btn_ask"
