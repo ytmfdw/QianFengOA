@@ -1,5 +1,6 @@
 package oa.qianfeng.com.oa.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -20,15 +21,17 @@ import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.adapter.RBaseAdapter;
 import oa.qianfeng.com.oa.entity.MsgBroadcastBean;
+import oa.qianfeng.com.oa.ui.activity.BroadcastActivity;
 import oa.qianfeng.com.oa.utils.Constant;
 import oa.qianfeng.com.oa.utils.DividerItemDecoration;
+import oa.qianfeng.com.oa.utils.IntentUtils;
 import oa.qianfeng.com.oa.widget.EmptyRecyclerView;
 import oa.qianfeng.com.oa.widget.EmptyView;
 
 /**
  * Created by Administrator on 2016/12/6.
  */
-public class MsgBroadcastFragment extends BaseNetFragment {
+public class MsgBroadcastFragment extends BaseNetFragment implements RBaseAdapter.ItemClick {
 
     @BindView(R.id.erv)
     EmptyRecyclerView erv;
@@ -72,6 +75,8 @@ public class MsgBroadcastFragment extends BaseNetFragment {
                 getActivity(), DividerItemDecoration.VERTICAL_LIST));
         erv.setEmptyView(emptyView);
         erv.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(this);
     }
 
 
@@ -89,5 +94,17 @@ public class MsgBroadcastFragment extends BaseNetFragment {
                 adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getActivity(), BroadcastActivity.class);
+        intent.putExtra(IntentUtils.INTENT_KEY_MSG, adapter.getData(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onLongItemClick(int position) {
+        return false;
     }
 }

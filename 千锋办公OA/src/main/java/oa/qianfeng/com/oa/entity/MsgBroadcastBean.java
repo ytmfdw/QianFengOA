@@ -1,7 +1,12 @@
 package oa.qianfeng.com.oa.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import oa.qianfeng.com.oa.utils.StrUtil;
 
 /**
  * <th>编号</th>
@@ -13,7 +18,7 @@ import org.jsoup.select.Elements;
  * <th>状态</th>
  * href
  */
-public class MsgBroadcastBean {
+public class MsgBroadcastBean implements Parcelable {
     public String codeNum;
     public String title;
     public String publisher;
@@ -36,8 +41,48 @@ public class MsgBroadcastBean {
         }
     }
 
+    protected MsgBroadcastBean(Parcel in) {
+        codeNum = in.readString();
+        title = in.readString();
+        publisher = in.readString();
+        publishTime = in.readString();
+        type = in.readString();
+        readNum = in.readString();
+        state = in.readString();
+    }
+
+    public static final Creator<MsgBroadcastBean> CREATOR = new Creator<MsgBroadcastBean>() {
+        @Override
+        public MsgBroadcastBean createFromParcel(Parcel in) {
+            return new MsgBroadcastBean(in);
+        }
+
+        @Override
+        public MsgBroadcastBean[] newArray(int size) {
+            return new MsgBroadcastBean[size];
+        }
+    };
+
     @Override
     public String toString() {
         return title + "\n" + publishTime;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(StrUtil.isNull(codeNum));
+        dest.writeString(StrUtil.isNull(title));
+        dest.writeString(StrUtil.isNull(publisher));
+        dest.writeString(StrUtil.isNull(publishTime));
+        dest.writeString(StrUtil.isNull(type));
+        dest.writeString(StrUtil.isNull(readNum));
+        dest.writeString(StrUtil.isNull(state));
+    }
+
+
 }

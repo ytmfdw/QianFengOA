@@ -15,4 +15,7 @@ public interface QueryService {
 
     @GET(API.URL_LEAVE)
     Call<String> getLeaveData();
+
+    @GET(API.URL_BROADCAST_DETAIL)
+    Call<String> getBroadcastData(@Query("mid") String mid);
 }

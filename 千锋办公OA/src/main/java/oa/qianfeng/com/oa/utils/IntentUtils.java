@@ -19,4 +19,8 @@ public class IntentUtils {
      * 请假
      */
     public static final String INTENT_KEY_LEAVEBEAN = "leavebean";
+    /**
+     * 跳转到公告详情界面
+     */
+    public static final String INTENT_KEY_MSG = "msgbean";
 }

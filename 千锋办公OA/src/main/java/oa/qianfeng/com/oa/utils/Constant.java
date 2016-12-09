@@ -84,4 +84,14 @@ public class Constant {
      * Map的key-->请假事由
      */
     public final static String MAP_KEY_LIST_REASON = "list_reason";
+
+//=============1:文字，2：图片=============
+    /**
+     * 文字类型
+     */
+    public final static int TYPE_TEXT = 1;
+    /**
+     * 图片类型
+     */
+    public final static int TYPE_IMG = 2;
 }
