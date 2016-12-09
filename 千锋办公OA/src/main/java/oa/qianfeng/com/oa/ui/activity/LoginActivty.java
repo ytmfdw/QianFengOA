@@ -1,18 +1,11 @@
 package oa.qianfeng.com.oa.ui.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -23,10 +16,8 @@ import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.entity.UserBean;
 import oa.qianfeng.com.oa.impl.OnLoginListener;
 import oa.qianfeng.com.oa.presenter.UserLoginPresenter;
-import oa.qianfeng.com.oa.utils.DisplayUtils;
 import oa.qianfeng.com.oa.utils.SharedUtils;
 import oa.qianfeng.com.oa.view.IUserLoginView;
-import oa.qianfeng.com.oa.widget.LoadingView;
 
 /**
  * 登录界面
@@ -44,6 +35,8 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     CheckBox cbSave;
     @BindView(R.id.cb_auto)
     CheckBox cbAuto;
+    @BindView(R.id.title)
+    TextView title;
 
     @Override
     public void setLayout() {
@@ -58,6 +51,11 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
         //初始化界面
 //        presenter.setUser();
         presenter.initViews();
+
+        if (SharedUtils.getInstances().isAutoLogin()) {
+            //自动登录
+            cbAuto.callOnClick();
+        }
     }
 
     @Override
@@ -88,6 +86,11 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     @Override
     public void setAutoLogin(boolean falg) {
         cbAuto.setChecked(falg);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title.setText(title);
     }
 
     public void doLogin(View view) {
@@ -129,5 +132,12 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
                 SharedUtils.getInstances().setAutoLogin(cbAuto.isChecked());
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

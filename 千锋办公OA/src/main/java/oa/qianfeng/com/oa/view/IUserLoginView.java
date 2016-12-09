@@ -16,4 +16,6 @@ public interface IUserLoginView {
 
     public void setAutoLogin(boolean falg);
 
+    public void setTitle(String title);
+
 }

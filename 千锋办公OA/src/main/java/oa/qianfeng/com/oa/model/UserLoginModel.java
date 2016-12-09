@@ -47,4 +47,9 @@ public class UserLoginModel implements IUserLoginModel {
     public boolean isAutoLogin() {
         return SharedUtils.getInstances().isAutoLogin();
     }
+
+    @Override
+    public String getTitle() {
+        return "登录";
+    }
 }

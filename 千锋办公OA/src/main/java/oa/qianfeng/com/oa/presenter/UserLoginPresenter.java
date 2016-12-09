@@ -38,6 +38,7 @@ public class UserLoginPresenter {
         view.setSavePassword(model.isSavePassword());
         view.setAutoLogin(model.isAutoLogin());
         setUser();
+        view.setTitle(model.getTitle());
     }
 
     public void saveUser(UserBean user) {

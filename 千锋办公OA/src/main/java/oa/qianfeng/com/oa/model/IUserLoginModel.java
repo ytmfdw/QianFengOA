@@ -30,4 +30,6 @@ public interface IUserLoginModel {
     public boolean isSavePassword();
 
     public boolean isAutoLogin();
+
+    public String getTitle();
 }
