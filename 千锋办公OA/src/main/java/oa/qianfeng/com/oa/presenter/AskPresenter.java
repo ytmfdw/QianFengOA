@@ -23,27 +23,48 @@ public class AskPresenter {
         }
     }
 
-    public void loadData(int type, OnGetDataListener<Map<String, Object>> listener) {
-        model.loadData(type, listener);
+    public void loadData(LeaveBean bean, int type, OnGetDataListener<Map<String, Object>> listener) {
+        if (bean == null) {
+            model.loadData(type, listener);
+        } else {
+            model.loadEditData(bean, listener);
+        }
     }
-
 
 
     public void postAsk(LeaveBean bean) {
         view.showLoading();
-        model.postData(bean, new OnGetDataListener<String>() {
-            @Override
-            public void onGetDataSuccess(String value) {
-                view.dissmissLoading();
-                view.showSuccess(value);
-            }
+        if (bean.state == 2) {
+            //待批复状态，是编辑状态
+            model.postEditData(bean, new OnGetDataListener<String>() {
+                @Override
+                public void onGetDataSuccess(String value) {
+                    view.dissmissLoading();
+                    view.showSuccess(value);
+                }
 
-            @Override
-            public void onGetDataFaild() {
-                view.dissmissLoading();
-                view.showFaild();
-            }
-        });
+                @Override
+                public void onGetDataFaild() {
+                    view.dissmissLoading();
+                    view.showFaild();
+                }
+            });
+        } else {
+            model.postData(bean, new OnGetDataListener<String>() {
+                @Override
+                public void onGetDataSuccess(String value) {
+                    view.dissmissLoading();
+                    view.showSuccess(value);
+                }
+
+                @Override
+                public void onGetDataFaild() {
+                    view.dissmissLoading();
+                    view.showFaild();
+                }
+            });
+        }
+
     }
 
 }

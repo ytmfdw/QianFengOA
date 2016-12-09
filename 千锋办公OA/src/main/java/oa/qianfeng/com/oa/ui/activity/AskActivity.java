@@ -91,9 +91,7 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
 
         presenter = new AskPresenter(this);
 
-        if (bean == null) {
-            presenter.loadData(type, this);
-        }
+        presenter.loadData(bean, type, this);
     }
 
     @Override

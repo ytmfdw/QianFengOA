@@ -13,4 +13,8 @@ public interface IAskModel {
 
     public void postData(LeaveBean bean, OnGetDataListener<String> listener);
 
+    public void loadEditData(LeaveBean bean,OnGetDataListener<Map<String, Object>> listener);
+
+    public void postEditData(LeaveBean bean, OnGetDataListener<String> listener);
+
 }

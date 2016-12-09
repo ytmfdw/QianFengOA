@@ -72,4 +72,11 @@ public class API {
      */
     public static final String URL_DEL_LEAVE = "oa.php/Atten/delLeave";
 
+    /**
+     * 编辑申请
+     * <p/>
+     * http://oa.1000phone.net/oa.php/Atten/eidtAskforleave?user_id=15040&ID=10077&type=
+     */
+    public static final String URL_ASK_EDIT = "oa.php/Atten/eidtAskforleave?";
+
 }
