@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -158,10 +160,16 @@ public class AttendanceFragment extends BaseNetFragment implements IAttendanceVi
             }
 
             TextView tv = new TextView(getActivity());
-            tv.setPadding(10, 10, 0, 0);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.text_size_content));
+            tv.setPadding(20, 20, 20, 20);
             tv.setText(allBean.toString());
             mBottomSheetDialog.setContentView(tv);
             mBottomSheetDialog.setTitle("出勤汇总");
+
+       /*     WindowManager.LayoutParams lp = mBottomSheetDialog.getWindow().getAttributes();
+            tv.measure(0, 0);
+            lp.height = tv.getMeasuredHeight();
+            mBottomSheetDialog.getWindow().setAttributes(lp);*/
 
             //如果已经展示了，就退出，不然就显示
             if (mBottomSheetDialog.isShowing()) {

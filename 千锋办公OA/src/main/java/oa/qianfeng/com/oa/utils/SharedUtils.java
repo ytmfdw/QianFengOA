@@ -72,4 +72,23 @@ public class SharedUtils {
         }
         return null;
     }
+
+    /**
+     * 是否是第一次运行申请列表
+     *
+     * @return
+     */
+    public boolean isFirstRunLeavList() {
+        return shared.getBoolean(Constant.SHARED_KEY_FIRST_LEAVE, true);
+    }
+
+    /**
+     * 保存第一次启动申请列表
+     *
+     * @param flag
+     */
+    public void saveFirstRunLeaveList(boolean flag) {
+        shared.edit().putBoolean(Constant.SHARED_KEY_FIRST_LEAVE, flag).commit();
+    }
+
 }

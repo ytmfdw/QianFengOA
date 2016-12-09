@@ -6,4 +6,5 @@
     <dimen name="text_size_title">18sp</dimen>
     <dimen name="text_size_content">15sp</dimen>
     <dimen name="text_size_readme">12sp</dimen>
+    <dimen name="rb_corners">5dp</dimen>
 </resources>

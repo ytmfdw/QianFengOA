@@ -14,16 +14,14 @@
 
         <RadioButton
             android:id="@+id/rb_broadcast"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/rb_msg_style"
+            android:background="@drawable/rb_left_selector"
             android:text="公告列表" />
 
         <RadioButton
             android:id="@+id/rb_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/rb_msg_style"
+            android:background="@drawable/rb_right_selector"
             android:text="消息中心" />
     </RadioGroup>
 

@@ -22,6 +22,7 @@ public class Constant {
     public final static String SHARED_KEY_USER = "user";
     public final static String SHARED_KEY_AUTOLOGIN = "autoLogin";
     public final static String SHARED_KEY_SAVEPASSWORD = "savePassword";
+    public final static String SHARED_KEY_FIRST_LEAVE = "first_leave";
 
 
     //==============消息================

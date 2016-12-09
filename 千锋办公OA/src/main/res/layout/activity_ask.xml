@@ -68,6 +68,7 @@
 
         <Button
             android:id="@+id/btn_startTime"
+            style="@style/btn_common_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,6 +76,7 @@
 
         <Button
             android:id="@+id/btn_endTime"
+            style="@style/btn_common_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -126,6 +128,7 @@
 
         <Button
             android:id="@+id/btn_submmit"
+            style="@style/btn_common_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -133,6 +136,7 @@
 
         <Button
             android:id="@+id/btn_cancel"
+            style="@style/btn_common_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

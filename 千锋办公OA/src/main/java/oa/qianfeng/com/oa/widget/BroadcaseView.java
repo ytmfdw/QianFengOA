@@ -104,7 +104,7 @@ public class BroadcaseView extends LinearLayout {
                     //图片
                     PhotoView img = new PhotoView(getContext());
                     //加载图片
-                    Glide.with(getContext()).load(value).into(img);
+                    Glide.with(getContext()).load(value).placeholder(R.drawable.default_img).error(R.drawable.error_img).into(img);
                     addView(img, textParams);
                 }
                 break;

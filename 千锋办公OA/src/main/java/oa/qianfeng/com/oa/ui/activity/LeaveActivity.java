@@ -2,12 +2,16 @@ package oa.qianfeng.com.oa.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +24,11 @@ import butterknife.OnClick;
 import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.adapter.RBaseAdapter;
 import oa.qianfeng.com.oa.entity.LeaveBean;
-import oa.qianfeng.com.oa.impl.OnGetDataListener;
 import oa.qianfeng.com.oa.presenter.LeavePresenter;
 import oa.qianfeng.com.oa.utils.Constant;
 import oa.qianfeng.com.oa.utils.DividerItemDecoration;
 import oa.qianfeng.com.oa.utils.IntentUtils;
+import oa.qianfeng.com.oa.utils.SharedUtils;
 import oa.qianfeng.com.oa.view.ILeaveView;
 import oa.qianfeng.com.oa.widget.EmptyRecyclerView;
 import oa.qianfeng.com.oa.widget.EmptyView;
@@ -56,6 +60,8 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, RBaseA
     LeavePresenter presenter;
     @BindView(R.id.emptyView)
     EmptyView emptyView;
+    @BindView(R.id.layout_content)
+    FrameLayout layoutContent;
 
     @Override
     public void initViews() {
@@ -70,6 +76,24 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, RBaseA
         setContentView(R.layout.activity_leave);
         ButterKnife.bind(this);
         type = getIntent().getIntExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_LEFAVE);
+
+        if (SharedUtils.getInstances().isFirstRunLeavList()) {
+            //第一次运行到这，弹出提示
+            final TextView tv = new TextView(this);
+            tv.setText("长按某条数据，可进行删除\n点击某条数据，可查看详情或编辑");
+            tv.setBackgroundColor(Color.parseColor("#80000000"));
+            tv.setGravity(Gravity.CENTER);
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    layoutContent.removeView(tv);
+                }
+            });
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutContent.addView(tv, params);
+        }
+
+        SharedUtils.getInstances().saveFirstRunLeaveList(false);
     }
 
     @OnClick(R.id.btn_ask)
@@ -186,5 +210,12 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, RBaseA
         }
 
         return false;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

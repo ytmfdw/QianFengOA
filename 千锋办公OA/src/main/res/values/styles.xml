@@ -22,4 +22,23 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="btn_common_style">
+        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">@color/text_title</item>
+        <item name="android:textSize">@dimen/text_size_content</item>
+    </style>
+
+    <style name="rb_msg_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/rb_text_selector</item>
+        <item name="android:textSize">@dimen/text_size_content</item>
+    </style>
+
+    <!--按钮统一风格-->
+
+
 </resources>
