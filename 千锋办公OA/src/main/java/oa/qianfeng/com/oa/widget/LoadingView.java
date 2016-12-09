@@ -47,7 +47,7 @@ public class LoadingView extends LinearLayout {
             anim = new RotateAnimation(0, 360, RotateAnimation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             anim.setDuration(3000);
             anim.setInterpolator(new LinearInterpolator());
-            anim.setRepeatMode(Animation.INFINITE);
+            anim.setRepeatCount(Animation.INFINITE);
         }
         iv.startAnimation(anim);
 

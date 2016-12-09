@@ -1,7 +1,6 @@
 package oa.qianfeng.com.oa.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import oa.qianfeng.com.oa.QFApp;
 import oa.qianfeng.com.oa.entity.UserBean;

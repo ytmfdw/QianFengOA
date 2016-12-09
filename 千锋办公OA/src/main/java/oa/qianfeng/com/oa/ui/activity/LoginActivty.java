@@ -54,7 +54,7 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
 
         if (SharedUtils.getInstances().isAutoLogin()) {
             //自动登录
-            cbAuto.callOnClick();
+            doLogin(null);
         }
     }
 
