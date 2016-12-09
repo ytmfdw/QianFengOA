@@ -123,6 +123,7 @@ public class MessageFragment extends BaseNetFragment implements OnGetDataListene
     @Override
     public void onGetDataSuccess(String value) {
         L.d(value);
+        msgData.clear();
         Document doc = Jsoup.parse(value);
         //===========公告列表
         Element broadcastes = doc.getElementById("broadcast");
