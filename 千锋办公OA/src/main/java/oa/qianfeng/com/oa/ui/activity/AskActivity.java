@@ -96,7 +96,7 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
 
     @Override
     public void showLoading() {
-        getShowDialog(true, "正在加载...").show();
+        getShowDialog(false, "正在加载...").show();
     }
 
     @Override
