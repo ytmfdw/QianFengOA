@@ -51,11 +51,6 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
         //初始化界面
 //        presenter.setUser();
         presenter.initViews();
-
-        if (SharedUtils.getInstances().isAutoLogin()) {
-            //自动登录
-            doLogin(null);
-        }
     }
 
     @Override
