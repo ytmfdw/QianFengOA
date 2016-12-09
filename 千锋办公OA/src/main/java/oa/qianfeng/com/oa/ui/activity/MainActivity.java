@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import oa.qianfeng.com.oa.ui.fragment.AttendanceFragment;
 import oa.qianfeng.com.oa.ui.fragment.BaseNetFragment;
 import oa.qianfeng.com.oa.ui.fragment.MessageFragment;
 import oa.qianfeng.com.oa.ui.fragment.MineFragment;
+import oa.qianfeng.com.oa.utils.DisplayUtils;
 
 public class MainActivity extends BaseNetActivity implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener {
 
@@ -45,14 +47,32 @@ public class MainActivity extends BaseNetActivity implements TabHost.OnTabChange
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    int[] imgs = {
+            R.drawable.tab_item_mine,
+            R.drawable.tab_item_attend,
+            R.drawable.tab_item_msg
+
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
+
+    }
+
+    @Override
+    public void initViews() {
+        super.initViews();
         initViewPager();
         setupTabHost();
+    }
+
+    @Override
+    public void setLayout() {
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
     }
 
     private void initViewPager() {
@@ -96,7 +116,7 @@ public class MainActivity extends BaseNetActivity implements TabHost.OnTabChange
         View view = inflater.inflate(R.layout.tabhost_item, null);
         //创建TabView
         ImageView iv = (ImageView) view.findViewById(R.id.iv_tabimg);
-
+        iv.setImageResource(imgs[i]);
         TextView tv = (TextView) view.findViewById(R.id.tv_tabtext);
         tv.setText(titles[i]);
         return view;

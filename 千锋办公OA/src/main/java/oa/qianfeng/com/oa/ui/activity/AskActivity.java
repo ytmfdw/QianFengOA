@@ -78,10 +78,8 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
     AskPresenter presenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ask);
-        ButterKnife.bind(this);
+    public void initViews() {
+        super.initViews();
         bean = getIntent().getParcelableExtra(IntentUtils.INTENT_KEY_LEAVEBEAN);
         type = getIntent().getIntExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_LEFAVE);
         adapter_boss = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, boess);
@@ -92,6 +90,12 @@ public class AskActivity extends BaseNetActivity implements IAskView, OnGetDataL
         presenter = new AskPresenter(this);
         showLoading();
         presenter.loadData(bean, type, this);
+    }
+
+    @Override
+    public void setLayout() {
+        setContentView(R.layout.activity_ask);
+        ButterKnife.bind(this);
     }
 
     @Override

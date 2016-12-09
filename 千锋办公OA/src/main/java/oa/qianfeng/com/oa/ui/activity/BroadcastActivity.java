@@ -1,7 +1,5 @@
 package oa.qianfeng.com.oa.ui.activity;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -29,14 +27,18 @@ public class BroadcastActivity extends BaseNetActivity implements IBroadcasdView
     BroadcastPresenter presenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_broadcast);
-        ButterKnife.bind(this);
+    public void initViews() {
+        super.initViews();
         bean = getIntent().getParcelableExtra(IntentUtils.INTENT_KEY_MSG);
         presenter = new BroadcastPresenter(this);
 
         presenter.loadData(bean);
+    }
+
+    @Override
+    public void setLayout() {
+        setContentView(R.layout.activity_broadcast);
+        ButterKnife.bind(this);
     }
 
 

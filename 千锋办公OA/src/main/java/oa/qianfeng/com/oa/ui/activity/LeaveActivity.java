@@ -58,16 +58,18 @@ public class LeaveActivity extends BaseNetActivity implements ILeaveView, RBaseA
     EmptyView emptyView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leave);
-        ButterKnife.bind(this);
-        type = getIntent().getIntExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_LEFAVE);
-
+    public void initViews() {
+        super.initViews();
         presenter = new LeavePresenter(this);
         presenter.init(type);
         presenter.loadData(type);
+    }
 
+    @Override
+    public void setLayout() {
+        setContentView(R.layout.activity_leave);
+        ButterKnife.bind(this);
+        type = getIntent().getIntExtra(IntentUtils.INTENT_KEY_TYPE, Constant.TYPE_LEFAVE);
     }
 
     @OnClick(R.id.btn_ask)

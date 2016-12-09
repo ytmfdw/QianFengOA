@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -21,6 +23,7 @@ import oa.qianfeng.com.oa.R;
 import oa.qianfeng.com.oa.entity.UserBean;
 import oa.qianfeng.com.oa.impl.OnLoginListener;
 import oa.qianfeng.com.oa.presenter.UserLoginPresenter;
+import oa.qianfeng.com.oa.utils.DisplayUtils;
 import oa.qianfeng.com.oa.utils.SharedUtils;
 import oa.qianfeng.com.oa.view.IUserLoginView;
 import oa.qianfeng.com.oa.widget.LoadingView;
@@ -43,16 +46,18 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     CheckBox cbAuto;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void setLayout() {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+    }
 
+    @Override
+    public void initViews() {
+        super.initViews();
         presenter = new UserLoginPresenter(this, this);
         //初始化界面
 //        presenter.setUser();
         presenter.initViews();
-
     }
 
     @Override
