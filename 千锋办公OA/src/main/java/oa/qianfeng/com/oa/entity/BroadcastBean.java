@@ -27,9 +27,9 @@ public class BroadcastBean {
         title = e.getElementsByClass("page-header").first().text();
         if (es.size() == 2) {
             //标题头部
-            Elements divs = es.get(0).select("div").first().select("div");
-            for (Element m : divs) {
-                subTitle = subTitle + " " + m.text() + " ";
+            Elements divs = es.get(0).select("div");
+            for (int i = 2; i < divs.size(); i++) {
+                subTitle = subTitle + " " + divs.get(i).text() + "\n";
             }
             L.d(subTitle);
             //公告内容
