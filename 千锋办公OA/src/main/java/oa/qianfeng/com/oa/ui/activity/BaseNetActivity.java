@@ -29,6 +29,7 @@ public class BaseNetActivity extends BaseActivity {
             dialog = null;
         }
 
+        //
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Dialog_Fullscreen);
         LoadingView loadingView = new LoadingView(this);
         loadingView.setText(msg);
@@ -36,13 +37,19 @@ public class BaseNetActivity extends BaseActivity {
         //不可取消
         builder.setCancelable(cancelable);
         dialog = builder.create();
-
+        //设置对话框 大小
+        //1.得到对话框的窗体对象
         Window dialogWindow = dialog.getWindow();
+        //2.得到对话框窗体对象的布局属性
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        //设置对话框重心
         dialogWindow.setGravity(Gravity.CENTER);
+        //3.测量控件大小，得到控件的测量大小
         loadingView.measure(0, 0);
+        //4.设置对话框布局属性的宽高
         lp.width = loadingView.getMeasuredWidth();
         lp.height = loadingView.getMeasuredHeight();
+        //5.重新设置对话框窗体的布局属性
         dialogWindow.setAttributes(lp);
         return dialog;
     }

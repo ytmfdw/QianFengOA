@@ -2,6 +2,7 @@ package oa.qianfeng.com.oa.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.drawable.AnimationDrawable;
 import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -42,6 +43,9 @@ public class LoadingView extends LinearLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.loading_view, this, true);
         iv = (ImageView) findViewById(R.id.iv);
         tv = (TextView) findViewById(R.id.tv);
+
+//        AnimationDrawable anim= (AnimationDrawable) iv.getDrawable();
+//        anim.start();
 
         if (anim == null) {
             anim = new RotateAnimation(0, 360, RotateAnimation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
