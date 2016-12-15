@@ -35,8 +35,8 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
     CheckBox cbSave;
     @BindView(R.id.cb_auto)
     CheckBox cbAuto;
-    @BindView(R.id.title)
-    TextView title;
+//    @BindView(R.id.title)
+//    TextView title;
 
     @Override
     public void setLayout() {
@@ -85,7 +85,7 @@ public class LoginActivty extends BaseNetActivity implements IUserLoginView, OnL
 
     @Override
     public void setTitle(String title) {
-        this.title.setText(title);
+        /*this.title.setText(title);*/
     }
 
     public void doLogin(View view) {
